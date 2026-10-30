@@ -1,0 +1,113 @@
+{
+  "created_at": "2026-10-26T03:22:57.432814+00:00",
+  "selected_model": "Histogram Gradient Boosting",
+  "database_sha256": "7f667490d80c28b36d5c45825053f073ea07d5aca9daa85347b391576598f33e",
+  "features": [
+    "area_sqft",
+    "bedrooms",
+    "bathrooms",
+    "year_built",
+    "sale_year",
+    "sale_month",
+    "state",
+    "locality",
+    "area_kind"
+  ],
+  "rows": 48584,
+  "train_rows": 34706,
+  "validation_rows": 4214,
+  "test_rows": 7804,
+  "purged_rows": 1860,
+  "split_policy": "Train 2016–2023; validation 2024; test 2025–2026. Purge earlier sales of holdout properties.",
+  "selection": "Lowest validation RMSE; no selection from test.",
+  "evaluation_model": "Refit selected model on train + validation; test properties excluded.",
+  "serving_model": "Separate final refit on all valid records 2016–2026. Test scores belong to evaluation_model only.",
+  "test_metrics": {
+    "mae": 265745.75313770096,
+    "rmse": 520761.73925467825,
+    "r2": 0.6862308965593225
+  },
+  "test_metrics_by_state": {
+    "CO": {
+      "mae": 219909.4190151436,
+      "rmse": 423533.5319343898,
+      "r2": 0.47460673368673856
+    },
+    "DC": {
+      "mae": 297621.07478147815,
+      "rmse": 578826.7622952812,
+      "r2": 0.7138737854504953
+    }
+  },
+  "scopes": {
+    "CO|Boulder County": {
+      "state": "CO",
+      "locality": "Boulder County",
+      "area_kind": "finished",
+      "rows": 23449,
+      "first_date": "2016-01-04",
+      "last_date": "2026-09-09",
+      "bounds": {
+        "area_sqft": [
+          308.0,
+          19044.0
+        ],
+        "bedrooms": [
+          0.0,
+          9.0
+        ],
+        "bathrooms": [
+          0.5,
+          8.5
+        ],
+        "year_built": [
+          1863.0,
+          2026.0
+        ]
+      },
+      "defaults": {
+        "area_sqft": 1680.0,
+        "bedrooms": 3.0,
+        "bathrooms": 2.5,
+        "year_built": 1993.0,
+        "sale_year": 2021.0,
+        "sale_month": 6.0
+      }
+    },
+    "DC|Washington, D.C.": {
+      "state": "DC",
+      "locality": "Washington, D.C.",
+      "area_kind": "gross",
+      "rows": 25135,
+      "first_date": "2016-01-04",
+      "last_date": "2026-10-15",
+      "bounds": {
+        "area_sqft": [
+          407.0,
+          14126.0
+        ],
+        "bedrooms": [
+          0.0,
+          13.0
+        ],
+        "bathrooms": [
+          1.0,
+          12.5
+        ],
+        "year_built": [
+          1754.0,
+          2026.0
+        ]
+      },
+      "defaults": {
+        "area_sqft": 1460.0,
+        "bedrooms": 3.0,
+        "bathrooms": 2.5,
+        "year_built": 1932.0,
+        "sale_year": 2021.0,
+        "sale_month": 6.0
+      }
+    }
+  },
+  "limitation": "Đặc điểm nhà là bản ghi hiện tại của cơ quan thuế, chưa được xác nhận đúng tại ngày bán. Điểm kiểm thử chỉ phục vụ bài học; chưa chứng minh khả năng định giá thực tế trong quá khứ hoặc tương lai."
+}
