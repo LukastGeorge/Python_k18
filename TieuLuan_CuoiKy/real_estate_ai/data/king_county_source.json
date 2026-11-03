@@ -1,0 +1,33 @@
+{
+  "dataset": "House Sales in King County, USA",
+  "publisher": "Kaggle / harlfoxem",
+  "source_url": "https://www.kaggle.com/datasets/harlfoxem/housesalesprediction",
+  "download_url": "https://www.kaggle.com/api/v1/datasets/download/harlfoxem/housesalesprediction",
+  "documentation": "https://geodacenter.github.io/data-and-lab/KingCounty-HouseSales2015/",
+  "download_date": "2026-10-31",
+  "sha256": "d0875baa0251b21d4bdc9d2ae940a4fe0bb6009824f23dd0e2a5b2bf04557b7e",
+  "rows": 21613,
+  "columns": [
+    "id",
+    "date",
+    "price",
+    "bedrooms",
+    "bathrooms",
+    "sqft_living",
+    "sqft_lot",
+    "floors",
+    "waterfront",
+    "view",
+    "condition",
+    "grade",
+    "sqft_above",
+    "sqft_basement",
+    "yr_built",
+    "yr_renovated",
+    "zipcode",
+    "lat",
+    "long",
+    "sqft_living15",
+    "sqft_lot15"
+  ]
+}
