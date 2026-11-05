@@ -1,0 +1,21 @@
+name: tieuluan-cuoiky
+
+services:
+  app:
+    image: ${CUOIKY_IMAGE:-ghcr.io/lukastgeorge/python-k18-cuoiky:latest}
+    ports:
+      - "127.0.0.1:${UI_PORT:-8000}:8000"
+    environment:
+      DB_BACKEND: sqlite
+      WEB_TRUSTED_HOSTS: "localhost,127.0.0.1,[::1]"
+    volumes:
+      - cuoiky-data:/app/storage
+      - cuoiky-models:/app/models
+    restart: unless-stopped
+    init: true
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  cuoiky-data:
+  cuoiky-models:

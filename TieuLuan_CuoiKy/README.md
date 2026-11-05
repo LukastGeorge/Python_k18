@@ -6,6 +6,12 @@ Nhấp đúp **[chay_ui.cmd](chay_ui.cmd)** ngay trong thư mục này. Giao di�
 
 Máy chưa cài thư viện: chạy **[scripts/cai_dat.cmd](scripts/cai_dat.cmd)** trước. Khuyến nghị Python 3.12.
 
+## CI và Docker image
+
+[GitHub Actions](https://github.com/LukastGeorge/Python_k18/actions/workflows/tieuluan-cuoiky.yml) tự kiểm thử ứng dụng và container khi push/pull request. Khi `main` đạt CI, CD xuất bản đúng image đã kiểm thử lên `ghcr.io/lukastgeorge/python-k18-cuoiky` với tag `latest` và `sha-<commit>`.
+
+Xem [hướng dẫn CI/CD và chạy bằng Docker](docs/CI_CD.md). Cấu hình Docker nằm trong `deploy/`; workflow nằm ở `.github/workflows/tieuluan-cuoiky.yml` tại gốc repository.
+
 ## Tìm file cần chỉnh sửa
 
 | Bạn cần làm gì? | Vị trí |
@@ -29,6 +35,7 @@ TieuLuan_CuoiKy/
 ├── README.md
 ├── chay_ui.cmd                    # Mở giao diện bằng SQLite
 ├── docs/                          # Báo cáo và tài liệu
+├── deploy/                        # Dockerfile và Docker Compose
 ├── notebooks/                     # Phân tích King County bằng USD
 ├── scripts/                       # Cài đặt, demo, chạy lịch, train, tạo notebook
 └── real_estate_ai/

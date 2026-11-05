@@ -2,6 +2,8 @@
 
 Chương trình gồm nhập dữ liệu, làm sạch, dự đoán, lưu PostgreSQL và huấn luyện XGBoost. Phiên bản hiện tại chạy hai tin **DEMO**; chưa kết nối website thu thập tin thật. Giá có đơn vị VND, diện tích m².
 
+CI/CD và image Docker được mô tả trong [docs/CI_CD.md](../docs/CI_CD.md). Image dùng Waitress, chạy cùng backend/frontend và có database SQLite riêng qua volume.
+
 ## Giao diện web và API
 
 Nhấp đúp **[chay_ui.cmd](../chay_ui.cmd)** ở thư mục `TieuLuan_CuoiKy` để mở giao diện tại **http://127.0.0.1:8000** với SQLite; dữ liệu lưu trong `storage/real_estate.db`. Không cần bật PostgreSQL hay kích hoạt môi trường của Lab1. Nếu thiếu Flask, chạy `../scripts/cai_dat.cmd` trước. Hoặc mở PowerShell từ thư mục gốc repository:

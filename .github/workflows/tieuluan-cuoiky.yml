@@ -1,0 +1,187 @@
+name: TieuLuan CuoiKy CI CD
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/tieuluan-cuoiky.yml
+      - TieuLuan_CuoiKy/**
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/tieuluan-cuoiky.yml
+      - TieuLuan_CuoiKy/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cuoiky-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: Test application and Docker image
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ci_test_password
+          POSTGRES_DB: real_estate_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d real_estate_ci"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      TEST_POSTGRES_URL: postgresql+psycopg2://postgres:ci_test_password@127.0.0.1:5432/real_estate_ci
+      LOCAL_IMAGE: cuoiky-ci:${{ github.sha }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Node for JavaScript syntax checks
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+
+      - name: Check frontend JavaScript
+        run: node --check TieuLuan_CuoiKy/real_estate_ai/frontend/static/app.js
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+
+      - name: Build application image
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: TieuLuan_CuoiKy/real_estate_ai
+          file: TieuLuan_CuoiKy/deploy/Dockerfile
+          platforms: linux/amd64
+          load: true
+          push: false
+          tags: ${{ env.LOCAL_IMAGE }}
+          build-args: |
+            VCS_REF=${{ github.sha }}
+            SOURCE_URL=${{ github.server_url }}/${{ github.repository }}
+          cache-from: type=gha,scope=cuoiky-runtime
+          cache-to: type=gha,mode=max,scope=cuoiky-runtime
+
+      - name: Run tests inside the image with SQLite and PostgreSQL
+        run: |
+          mkdir -p ci-artifacts
+          test_exit=0
+          docker run --name cuoiky-tests --network host \
+            --env TEST_POSTGRES_URL \
+            --volume "$GITHUB_WORKSPACE/TieuLuan_CuoiKy/real_estate_ai/tests:/app/tests:ro" \
+            --entrypoint python "$LOCAL_IMAGE" \
+            -m pytest -q /app/tests -o cache_dir=/tmp/pytest-cache \
+            --junitxml=/tmp/pytest-results.xml || test_exit=$?
+          docker cp cuoiky-tests:/tmp/pytest-results.xml ci-artifacts/pytest-results.xml
+          exit "$test_exit"
+
+      - name: Verify notebook dataset checksum
+        run: |
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          data = Path('TieuLuan_CuoiKy/real_estate_ai/data/raw')
+          expected = json.loads((data / 'king_county_source.json').read_text())['sha256']
+          assert hashlib.sha256((data / 'kc_house_data.csv').read_bytes()).hexdigest() == expected
+          print('King County checksum verified')
+          PY
+
+      - name: Start and exercise the packaged UI and API
+        run: |
+          docker run --detach --name cuoiky-smoke \
+            --publish 127.0.0.1:18080:8000 "$LOCAL_IMAGE"
+          python3 TieuLuan_CuoiKy/scripts/smoke_container.py --url http://127.0.0.1:18080
+          docker exec cuoiky-smoke python -c "import sklearn, xgboost; print('ML runtime imports OK')"
+
+      - name: Save the exact tested image for delivery
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          mkdir -p image-artifact
+          docker image inspect "$LOCAL_IMAGE" --format '{{.Id}}' > image-artifact/image-id.txt
+          docker save "$LOCAL_IMAGE" | gzip -1 > image-artifact/image.tar.gz
+
+      - name: Upload tested image
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: cuoiky-image-${{ github.sha }}
+          path: image-artifact/
+          retention-days: 1
+          compression-level: 0
+          overwrite: true
+          if-no-files-found: error
+
+      - name: Collect container logs and clean up
+        if: always()
+        run: |
+          mkdir -p ci-artifacts
+          docker logs cuoiky-smoke > ci-artifacts/container.log 2>&1 || true
+          docker rm --force --volumes cuoiky-tests cuoiky-smoke || true
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: cuoiky-test-results-${{ github.sha }}
+          path: ci-artifacts/
+          retention-days: 7
+          overwrite: true
+
+  publish:
+    name: Publish tested image to GHCR
+    needs: ci
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+      packages: write
+    steps:
+      - name: Download the image that passed CI
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: cuoiky-image-${{ github.sha }}
+          path: image-artifact
+
+      - name: Load and verify image identity
+        run: |
+          docker load --input image-artifact/image.tar.gz
+          actual=$(docker image inspect "cuoiky-ci:$GITHUB_SHA" --format '{{.Id}}')
+          expected=$(cat image-artifact/image-id.txt)
+          test "$actual" = "$expected"
+          owner=${GITHUB_REPOSITORY_OWNER,,}
+          echo "IMAGE=ghcr.io/$owner/python-k18-cuoiky" >> "$GITHUB_ENV"
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish commit and latest tags
+        run: |
+          docker tag "cuoiky-ci:$GITHUB_SHA" "$IMAGE:sha-$GITHUB_SHA"
+          docker tag "cuoiky-ci:$GITHUB_SHA" "$IMAGE:latest"
+          docker push "$IMAGE:sha-$GITHUB_SHA"
+          docker push "$IMAGE:latest"
+          {
+            echo '## Published Docker image'
+            echo "- Latest: \`$IMAGE:latest\`"
+            echo "- Commit: \`$IMAGE:sha-$GITHUB_SHA\`"
+            echo "- Tested image ID: \`$(cat image-artifact/image-id.txt)\`"
+            echo '- The published image is the exact image tested by the CI job.'
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -144,3 +144,11 @@ def test_api_uses_saved_trained_model(web):
     assert result['predicted_price'] == 2_345_000_000
     assert result['prediction_method'] == 'trained_model'
     assert client.get('/api/status').json['model']['method'] == 'trained_model'
+
+
+def test_configured_hosts_are_checked(web, monkeypatch):
+    _, engine, tmp_path = web
+    monkeypatch.setenv('WEB_TRUSTED_HOSTS', 'localhost, realestate.test')
+    client = create_app(engine=engine, model_path=tmp_path / 'missing.pkl').test_client()
+    assert client.get('/', base_url='http://realestate.test').status_code == 200
+    assert client.get('/', base_url='http://other.test').status_code == 400

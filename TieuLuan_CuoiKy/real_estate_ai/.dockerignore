@@ -1,0 +1,13 @@
+# Allow only application source and required dependency files into the build.
+*
+!backend/
+!backend/**
+!frontend/
+!frontend/**
+!requirements/
+!requirements/base.txt
+!requirements/production.txt
+!pytest.ini
+**/__pycache__/
+**/*.pyc
+**/.env

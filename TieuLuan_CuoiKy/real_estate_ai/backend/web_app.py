@@ -30,8 +30,9 @@ def serialize_record(row):
 def create_app(*, engine=None, model_path=MODEL_PATH):
     app = Flask(__name__, template_folder=str(ROOT / 'frontend' / 'templates'),
                 static_folder=str(ROOT / 'frontend' / 'static'), static_url_path='/static')
+    trusted_hosts = os.getenv('WEB_TRUSTED_HOSTS', 'localhost,127.0.0.1,[::1]')
     app.config.update(MAX_CONTENT_LENGTH=16_384,
-                      TRUSTED_HOSTS=['localhost', '127.0.0.1', '[::1]'])
+                      TRUSTED_HOSTS=[host.strip() for host in trusted_hosts.split(',') if host.strip()])
     app.json.ensure_ascii = False
     db = engine if engine is not None else get_engine()
     app.extensions['database'] = db
