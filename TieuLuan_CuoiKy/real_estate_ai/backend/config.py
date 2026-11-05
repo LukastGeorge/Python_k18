@@ -5,8 +5,9 @@ from pathlib import Path
 from dotenv import load_dotenv
 from sqlalchemy import URL, create_engine
 
-ROOT = Path(__file__).resolve().parent
-MODEL_PATH = ROOT / 'house_model.pkl'
+ROOT = Path(__file__).resolve().parents[1]
+STORAGE_DIR = ROOT / 'storage'
+MODEL_PATH = ROOT / 'models' / 'house_model.pkl'
 FEATURES = ['dien_tich', 'so_phong_ngu', 'latitude', 'longitude']
 load_dotenv(ROOT / '.env', override=False)
 
@@ -20,7 +21,8 @@ def configure_console():
 def get_engine():
     backend = os.getenv('DB_BACKEND', 'postgresql').lower()
     if backend == 'sqlite':
-        return create_engine(URL.create('sqlite', database=str(ROOT / 'real_estate.db')))
+        STORAGE_DIR.mkdir(parents=True, exist_ok=True)
+        return create_engine(URL.create('sqlite', database=str(STORAGE_DIR / 'real_estate.db')))
     if backend != 'postgresql':
         raise ValueError('DB_BACKEND phải là postgresql hoặc sqlite.')
     password = os.getenv('DB_PASSWORD')

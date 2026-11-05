@@ -1,7 +1,7 @@
 """Ràng buộc dữ liệu thống nhất cho nhập CSV, huấn luyện và dự đoán."""
 import numpy as np
 import pandas as pd
-from config import FEATURES
+from .config import FEATURES
 
 
 def validate_features(frame):

@@ -5,6 +5,7 @@ __pycache__/
 .buildtmp/
 *.pyc
 *.db
+storage/*.db*
 *.pkl
 *.log
 model_metrics.json

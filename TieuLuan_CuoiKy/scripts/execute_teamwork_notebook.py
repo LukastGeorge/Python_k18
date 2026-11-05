@@ -10,8 +10,8 @@ from nbclient import NotebookClient
 from jupyter_client import KernelManager
 
 
-PROJECT = Path(__file__).resolve().parents[1]
-NOTEBOOK = PROJECT.parent / "TeamWork_PP_Nhom8.ipynb"
+PROJECT = Path(__file__).resolve().parents[1] / "real_estate_ai"
+NOTEBOOK = PROJECT.parent / "notebooks" / "TeamWork_PP_Nhom8.ipynb"
 QA = PROJECT / ".buildtmp" / "notebook_qa"
 QA.mkdir(parents=True, exist_ok=True)
 runtime = PROJECT / ".buildtmp" / "jupyter_runtime"
@@ -31,7 +31,7 @@ km = KernelManager(kernel_name="python3")
 km.kernel_spec.argv = [sys.executable, "-m", "ipykernel_launcher", "-f", "{connection_file}"]
 client = NotebookClient(
     nb, km=km, timeout=300, allow_errors=False,
-    resources={"metadata": {"path": str(PROJECT.parent)}},
+    resources={"metadata": {"path": str(NOTEBOOK.parent)}},
     on_cell_start=progress,
 )
 client.execute()

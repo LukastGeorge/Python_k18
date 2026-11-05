@@ -5,8 +5,8 @@ from textwrap import dedent
 import nbformat as nbf
 
 
-PROJECT = Path(__file__).resolve().parents[1]
-OUTPUT = PROJECT.parent / "TeamWork_PP_Nhom8.ipynb"
+PROJECT = Path(__file__).resolve().parents[1] / "real_estate_ai"
+OUTPUT = PROJECT.parent / "notebooks" / "TeamWork_PP_Nhom8.ipynb"
 cells = []
 
 
@@ -43,12 +43,12 @@ md(r"""
 3. Nếu thiếu thư viện, mở terminal tại `TieuLuan_CuoiKy/real_estate_ai` và chạy:
 
    ```powershell
-   .\.venv\Scripts\python.exe -m pip install -r requirements-notebook.txt
+   .\.venv\Scripts\python.exe -m pip install -r requirements/notebook.txt
    ```
 
 4. Chọn **Restart Kernel and Run All** để tái tạo toàn bộ kết quả.
 
-CSV đi kèm nằm tại `real_estate_ai/data/kc_house_data.csv`, nên máy hiện tại chạy được offline.
+CSV đi kèm nằm tại `real_estate_ai/data/raw/kc_house_data.csv`, nên máy hiện tại chạy được offline.
 Nếu chỉ mang notebook sang máy khác, cell tải dữ liệu sẽ lấy CSV từ Kaggle; khi đó cần Internet.
 Các thư viện cần thiết: `numpy pandas matplotlib seaborn scikit-learn xgboost ipykernel`.
 Các bảng và hình đã lưu trong notebook có thể xem mà không cần chạy lại.
@@ -116,7 +116,7 @@ EXPECTED_SHA256 = "d0875baa0251b21d4bdc9d2ae940a4fe0bb6009824f23dd0e2a5b2bf04557
 cwd = Path.cwd().resolve()
 candidates = [cwd, cwd / "TieuLuan_CuoiKy", cwd.parent]
 demo_root = next((p for p in candidates if (p / "real_estate_ai").is_dir()), cwd)
-data_dir = demo_root / "real_estate_ai" / "data"
+data_dir = demo_root / "real_estate_ai" / "data" / "raw"
 data_path = data_dir / "kc_house_data.csv"
 
 if data_path.exists():
@@ -277,7 +277,7 @@ md(r"""
 | `price` | Nhãn `price` | Giữ USD, không đưa vào X |
 
 Giới hạn **10–1.000 m²**, **0–30 phòng ngủ nguyên**, tọa độ hợp lệ được lấy theo
-`real_estate_ai/validation.py` để phù hợp miền đầu vào hiện tại của demo.
+`real_estate_ai/backend/validation.py` để phù hợp miền đầu vào hiện tại của demo.
 Loại các dòng ngoài miền này là thu hẹp phạm vi nghiên cứu, **không khẳng định chúng là tin giả**.
 Không loại nhà đắt chỉ vì giá cao và không cắt ngoại lệ dựa trên phân vị của tập Test.
 Giá thiếu/không dương không thể làm nhãn huấn luyện; không nội suy nhãn từ dự đoán.

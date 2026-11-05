@@ -1,8 +1,8 @@
 """Nạp mô hình thật hoặc công thức minh họa được gắn nhãn rõ ràng."""
 import numpy as np
 import joblib
-from config import FEATURES, MODEL_PATH
-from validation import validate_features
+from .config import FEATURES, MODEL_PATH
+from .validation import validate_features
 
 
 class RealEstateAI:

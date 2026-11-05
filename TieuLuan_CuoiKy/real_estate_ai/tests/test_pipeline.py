@@ -7,11 +7,11 @@ import numpy as np
 import pandas as pd
 import pytest
 from sqlalchemy import create_engine, func, select
-from config import FEATURES
-from data_pipeline import scrape_hourly_news, clean_data, run_pipeline
-from database import records, load_training_data
-from model_inference import RealEstateAI
-from retrain_model import train_model, execute_retrain
+from backend.config import FEATURES
+from backend.data_pipeline import scrape_hourly_news, clean_data, run_pipeline
+from backend.database import records, load_training_data
+from backend.model_inference import RealEstateAI
+from backend.retrain_model import train_model, execute_retrain
 
 
 @pytest.fixture
@@ -169,18 +169,18 @@ def test_csv_training_and_saved_inference_end_to_end(db, tmp_path):
 
 
 def test_import_scheduler_does_not_run_pipeline(monkeypatch):
-    import data_pipeline
+    import backend.data_pipeline as data_pipeline
     def forbidden(*args, **kwargs):
         pytest.fail('Import must not run a job or connect to database.')
     monkeypatch.setattr(data_pipeline, 'run_pipeline', forbidden)
-    import run_hourly
+    import backend.run_hourly as run_hourly
     importlib.reload(run_hourly)
     monkeypatch.undo()
     importlib.reload(run_hourly)
 
 
 def test_scheduler_once_and_recovery(monkeypatch):
-    import run_hourly
+    import backend.run_hourly as run_hourly
     called = []
     monkeypatch.setattr(run_hourly, 'run_pipeline', lambda *args, **kwargs: called.append(True))
     assert run_hourly.main(['--once']) == 0 and len(called) == 1

@@ -11,8 +11,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, r2_score, root_mean_squared_error
 from sqlalchemy.exc import SQLAlchemyError
 from xgboost import XGBRegressor
-from config import FEATURES, MODEL_PATH, get_engine, configure_console
-from database import load_training_data
+from .config import FEATURES, MODEL_PATH, get_engine, configure_console
+from .database import load_training_data
 
 
 def load_data_from_db(engine=None):

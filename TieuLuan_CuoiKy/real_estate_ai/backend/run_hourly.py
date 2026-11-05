@@ -4,8 +4,8 @@ import time
 from pathlib import Path
 import schedule
 from sqlalchemy.exc import SQLAlchemyError
-from config import configure_console
-from data_pipeline import run_pipeline
+from .config import configure_console
+from .data_pipeline import run_pipeline
 
 
 def safe_run(csv_path=None, source='csv'):

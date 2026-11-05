@@ -6,10 +6,10 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from sqlalchemy.exc import SQLAlchemyError
-from config import get_engine, MODEL_PATH, configure_console
-from database import save_records
-from model_inference import RealEstateAI
-from validation import validate_features
+from .config import get_engine, MODEL_PATH, configure_console
+from .database import save_records
+from .model_inference import RealEstateAI
+from .validation import validate_features
 
 
 def scrape_hourly_news():
@@ -84,12 +84,13 @@ def read_input_csv(csv_path):
         return pd.read_csv(file, dtype={'id': str}, keep_default_na=False, na_values=[''])
 
 
-def run_pipeline(csv_path=None, *, engine=None, model_path=MODEL_PATH, source='csv'):
+def run_pipeline(csv_path=None, *, engine=None, model_path=MODEL_PATH, source='csv', verbose=True):
     is_demo = csv_path is None
     raw = scrape_hourly_news() if is_demo else read_input_csv(csv_path)
     clean = clean_data(raw, is_demo=is_demo, source='demo' if is_demo else source)
     if clean.empty:
-        print('Không có dữ liệu để xử lý.')
+        if verbose:
+            print('Không có dữ liệu để xử lý.')
         return clean
     # Nạp lại ở mỗi lần chạy để nhận mô hình vừa huấn luyện, nếu có.
     ai_model = RealEstateAI(model_path, allow_demo=is_demo)
@@ -103,14 +104,15 @@ def run_pipeline(csv_path=None, *, engine=None, model_path=MODEL_PATH, source='c
     finally:
         if owned_engine:
             db.dispose()
-    print(f'Đã cập nhật {len(clean)} tin trong bảng real_estate_records ({db.dialect.name}).')
-    if is_demo:
-        print('CHẾ ĐỘ DEMO: tin và tọa độ là mẫu giả lập, không dùng làm dữ liệu huấn luyện thật.')
-    if ai_model.method == 'demo_formula':
-        print('Chưa có mô hình thật; giá bên dưới tính bằng công thức minh họa.')
-    elif ai_model.method == 'unavailable':
-        print('Chưa có mô hình: đã lưu dữ liệu thật; predicted_price để trống. Có thể huấn luyện khi đủ mẫu.')
-    print(clean[['id', 'dien_tich', 'so_phong_ngu', 'predicted_price', 'prediction_method']].to_string(index=False))
+    if verbose:
+        print(f'Đã cập nhật {len(clean)} tin trong bảng real_estate_records ({db.dialect.name}).')
+        if is_demo:
+            print('CHẾ ĐỘ DEMO: tin và tọa độ là mẫu giả lập, không dùng làm dữ liệu huấn luyện thật.')
+        if ai_model.method == 'demo_formula':
+            print('Chưa có mô hình thật; giá bên dưới tính bằng công thức minh họa.')
+        elif ai_model.method == 'unavailable':
+            print('Chưa có mô hình: đã lưu dữ liệu thật; predicted_price để trống. Có thể huấn luyện khi đủ mẫu.')
+        print(clean[['id', 'dien_tich', 'so_phong_ngu', 'predicted_price', 'prediction_method']].to_string(index=False))
     return clean
 
 
