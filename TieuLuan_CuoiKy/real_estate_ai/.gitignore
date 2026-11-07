@@ -5,7 +5,12 @@ __pycache__/
 .buildtmp/
 *.pyc
 *.db
+storage/*.db*
 *.pkl
 *.log
+data/raw/vietnam/*.parquet
+data/raw/vietnam/first_rows.json
+data/raw/kaggle_vietnam_2024/*.zip
+artifacts/vietnam/*.pending.joblib
 model_metrics.json
 *.metrics.json

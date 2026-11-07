@@ -1,0 +1,295 @@
+{
+  "schema": "kingcounty-v1",
+  "model_version": "20261106T180015Z",
+  "selected_model": "XGBoost nhà và vị trí",
+  "features": [
+    "living_m2",
+    "lot_m2",
+    "bedrooms",
+    "bathrooms",
+    "floors",
+    "waterfront",
+    "view",
+    "condition",
+    "grade",
+    "house_age",
+    "renovated",
+    "renovation_age",
+    "latitude",
+    "longitude",
+    "month_index",
+    "zipcode"
+  ],
+  "dataset_sha256": "d0875baa0251b21d4bdc9d2ae940a4fe0bb6009824f23dd0e2a5b2bf04557b7e",
+  "dataset_source": "https://www.kaggle.com/datasets/harlfoxem/housesalesprediction",
+  "split_version": "four-block-v1",
+  "splits": {
+    "test": {
+      "rows": 4750,
+      "houses": 4750,
+      "first_date": "2015-03-01",
+      "last_date": "2015-05-27"
+    },
+    "calibration": {
+      "rows": 2218,
+      "houses": 2218,
+      "first_date": "2015-01-02",
+      "last_date": "2015-02-28"
+    },
+    "validation": {
+      "rows": 2853,
+      "houses": 2853,
+      "first_date": "2014-11-01",
+      "last_date": "2014-12-31"
+    },
+    "train": {
+      "rows": 11596,
+      "houses": 11586,
+      "first_date": "2014-05-02",
+      "last_date": "2014-10-31"
+    }
+  },
+  "purged_rows": 167,
+  "selection": "Lowest validation RMSE only. Test never selects features or hyperparameters.",
+  "serving_policy": "Serving model is the evaluated train+validation model; calibration and test never fitted.",
+  "validation_metrics": {
+    "mae_usd": 63674.78119523309,
+    "rmse_usd": 115485.85820061115,
+    "r2": 0.8941958363454593,
+    "median_ape": 0.08577571428571429,
+    "mape": 0.11745481892334801,
+    "within_10pct": 0.5713284262180162,
+    "within_20pct": 0.8310550297932001
+  },
+  "test_metrics": {
+    "mae_usd": 76538.43655756579,
+    "rmse_usd": 131886.2846693789,
+    "r2": 0.8733815340059443,
+    "median_ape": 0.10433858423051956,
+    "mape": 0.13222009407783264,
+    "within_10pct": 0.4789473684210526,
+    "within_20pct": 0.7953684210526316,
+    "interval_coverage": 0.9084210526315789,
+    "median_interval_width_usd": 264360.3125
+  },
+  "baseline_test_metrics": {
+    "mae_usd": 226484.5962105263,
+    "rmse_usd": 385065.97118461115,
+    "r2": -0.07936433013981414,
+    "median_ape": 0.33136094674556194,
+    "mape": 0.4104361965025408,
+    "within_10pct": 0.15621052631578947,
+    "within_20pct": 0.31305263157894736
+  },
+  "exchange_rate": {
+    "usd_vnd": 25780.0,
+    "quote_kind": "Vietcombank USD sell",
+    "source_url": "https://portal.vietcombank.com.vn/Usercontrols/TVPortal.TyGia/pXML.aspx?b=1",
+    "source_page": "https://www.vietcombank.com.vn/vi-VN/KHCN/Cong-cu-tien-ich/Ty-gia",
+    "quoted_at": "11/7/2026 12:39:49 AM",
+    "retrieved_at": "2026-11-06T17:41:58.606994+00:00",
+    "sha256": "fa614c393979d637523813fffc2dcff9dd025cb681979f41ab363d3ef5e0c279",
+    "meaning": "Currency conversion of historical US house prices; not a Vietnamese market valuation."
+  },
+  "target_currency": "USD",
+  "display_currency": "VND",
+  "calibration": {
+    "nominal_coverage": 0.9,
+    "log_radius": 0.30013433803057943,
+    "rows": 2218,
+    "method": "Split conformal absolute log residual, finite-sample higher quantile. Temporal shift can reduce coverage."
+  },
+  "first_date": "2014-05-02",
+  "last_date": "2015-05-27",
+  "audit": {
+    "raw_rows": 21613,
+    "exact_duplicates": 0,
+    "invalid_rows": 29,
+    "rejected_ids": [
+      "6306400140",
+      "3421079032",
+      "1832100030",
+      "8712100320",
+      "3076500830",
+      "3918400017",
+      "5702500050",
+      "2954400190",
+      "9141100005",
+      "9520900210",
+      "1250200495",
+      "3374500520",
+      "7849202190",
+      "0203100435",
+      "7284900030",
+      "9543000205",
+      "2770601530",
+      "3585900665",
+      "3585900190",
+      "2402100895",
+      "9126100346",
+      "8935100100",
+      "3980300371",
+      "9126100765",
+      "9310300160",
+      "1257201420",
+      "6058600220",
+      "5694500840",
+      "6169901185"
+    ],
+    "accepted_rows": 21584,
+    "unique_houses": 21407
+  },
+  "input_defaults": {
+    "living_m2": 102.19334400000001,
+    "lot_m2": 278.70912000000004,
+    "bedrooms": 2.0,
+    "bathrooms": 2.0,
+    "floors": 1.5,
+    "waterfront": 0.0,
+    "view": 0.0,
+    "condition": 3.0,
+    "grade": 7.0,
+    "latitude": 47.6797,
+    "longitude": -122.362,
+    "zipcode": "98117",
+    "year_built": 1912,
+    "year_renovated": 0
+  },
+  "input_bounds": {
+    "living_m2": [
+      34.374124800000004,
+      1257.9071616
+    ],
+    "lot_m2": [
+      48.309580800000006,
+      153416.27123136
+    ],
+    "bedrooms": [
+      0.0,
+      11.0
+    ],
+    "bathrooms": [
+      0.5,
+      8.0
+    ],
+    "floors": [
+      1.0,
+      3.5
+    ],
+    "waterfront": [
+      0.0,
+      1.0
+    ],
+    "view": [
+      0.0,
+      4.0
+    ],
+    "condition": [
+      1.0,
+      5.0
+    ],
+    "grade": [
+      3.0,
+      13.0
+    ],
+    "latitude": [
+      47.1559,
+      47.7776
+    ],
+    "longitude": [
+      -122.519,
+      -121.315
+    ],
+    "year_built": [
+      1900.0,
+      2015.0
+    ],
+    "year_renovated": [
+      0.0,
+      2015.0
+    ]
+  },
+  "zipcodes": [
+    "98001",
+    "98002",
+    "98003",
+    "98004",
+    "98005",
+    "98006",
+    "98007",
+    "98008",
+    "98010",
+    "98011",
+    "98014",
+    "98019",
+    "98022",
+    "98023",
+    "98024",
+    "98027",
+    "98028",
+    "98029",
+    "98030",
+    "98031",
+    "98032",
+    "98033",
+    "98034",
+    "98038",
+    "98039",
+    "98040",
+    "98042",
+    "98045",
+    "98052",
+    "98053",
+    "98055",
+    "98056",
+    "98058",
+    "98059",
+    "98065",
+    "98070",
+    "98072",
+    "98074",
+    "98075",
+    "98077",
+    "98092",
+    "98102",
+    "98103",
+    "98105",
+    "98106",
+    "98107",
+    "98108",
+    "98109",
+    "98112",
+    "98115",
+    "98116",
+    "98117",
+    "98118",
+    "98119",
+    "98122",
+    "98125",
+    "98126",
+    "98133",
+    "98136",
+    "98144",
+    "98146",
+    "98148",
+    "98155",
+    "98166",
+    "98168",
+    "98177",
+    "98178",
+    "98188",
+    "98198",
+    "98199"
+  ],
+  "living_p01": 66.8901888,
+  "living_p99": 465.44423040000004,
+  "poi_available": false,
+  "poi_counts": {},
+  "poi_snapshot": null,
+  "limitation": "Ước tính nhà tại King County theo dữ liệu giao dịch 2014–2015, quy đổi sang VND. Không phải giá nhà Việt Nam hay định giá thị trường hiện tại. Quan hệ trong dữ liệu và đóng góp mô hình không chứng minh quan hệ nhân quả.",
+  "excluded_features": [
+    "price_per_m2 (derived from target)",
+    "id (identifier)",
+    "sqft_living15/sqft_lot15 (historical vintage not verified)"
+  ]
+}

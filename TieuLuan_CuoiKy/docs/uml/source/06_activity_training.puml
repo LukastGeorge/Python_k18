@@ -1,0 +1,44 @@
+@startuml
+!include theme.iuml
+title 06. Hoạt động — Huấn luyện mô hình VND
+
+start
+:Chạy backend.retrain_model\nqua scripts/huan_luyen.cmd hoặc Python;
+partition "Chọn dữ liệu huấn luyện" {
+  :Lấy Engine theo môi trường / .env;
+  :load_training_data(): SELECT từ real_estate_records\nis_demo=false; price_kind=sale; actual_price IS NOT NULL;
+  :remove_outliers(): kiểm tra số hữu hạn,\ndiện tích, phòng, tọa độ và giá bán;
+  :Bỏ bản ghi trùng theo (source, id);
+  if (Có ít nhất 50 căn hợp lệ?) then (Không)
+    :Thông báo thiếu dữ liệu\nGiữ nguyên mô hình hiện có;
+    stop
+  else (Có)
+  endif
+}
+partition "Huấn luyện và đánh giá" {
+  :X = diện tích, phòng ngủ, vĩ độ, kinh độ\ny = actual_price (VND);
+  :Chia train/test = 80/20\nrandom_state=42;
+  :Huấn luyện XGBRegressor chỉ trên train\n100 cây, learning_rate=0.05, max_depth=6;
+  :Dự đoán trên test;
+  if (Mọi giá dự đoán hữu hạn và > 0?) then (Không)
+    :Báo ValueError\nChưa thay mô hình cũ;
+    stop
+  else (Có)
+    :Tính MAE, RMSE, R²\nBaseline MAE: trung vị y_train;
+  endif
+}
+partition "Lưu và sử dụng" {
+  :Tạo bundle: model, features, target=actual_price,\ncurrency=VND, trained_at, metrics, evaluation;
+  :joblib.dump() vào file tạm\nos.replace() sang models/house_model.pkl;
+  :Ghi models/house_model.metrics.json;
+  :Thông báo kết quả;
+  :API / pipeline nạp bundle mới\nở lần xử lý tiếp theo;
+}
+stop
+
+note right
+  Không lấy predicted_price làm nhãn.
+  Không dùng tin demo hoặc giá USD của notebook.
+  Mô hình lưu chỉ học tập train, không fit lại toàn bộ.
+end note
+@enduml

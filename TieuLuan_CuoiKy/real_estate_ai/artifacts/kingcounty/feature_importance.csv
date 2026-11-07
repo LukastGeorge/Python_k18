@@ -1,0 +1,17 @@
+,mean_abs_log_shap
+latitude,0.23170646
+grade,0.14238334
+living_m2,0.14047477
+longitude,0.030988373
+lot_m2,0.030311272
+house_age,0.025046764
+condition,0.024474
+view,0.023176873
+zipcode,0.020987896
+bathrooms,0.010277355
+renovated,0.005191553
+waterfront,0.004881693
+bedrooms,0.0029888693
+floors,0.0017872348
+month_index,0.0014080243
+renovation_age,0.0008743695

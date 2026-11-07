@@ -1,0 +1,42 @@
+@startuml
+!include theme.iuml
+title 01. Use Case — Chức năng dự án
+left to right direction
+
+actor "Người sử dụng UI" as User
+actor "Người vận hành\n(PowerShell / CLI)" as Operator
+
+rectangle "TieuLuan_CuoiKy" {
+  usecase "Nhập nhà, xử lý\ndự đoán và lưu" as Submit
+  usecase "Nạp / cập nhật\nhai tin demo" as Demo
+  usecase "Tra cứu, lọc\nvà phân trang" as Search
+  usecase "Xem trạng thái DB,\nthống kê, mô hình" as Status
+  usecase "Nhập CSV thật" as Import
+  usecase "Chạy pipeline\nmột lần / định kỳ" as Schedule
+  usecase "Huấn luyện\nmô hình VND" as Train
+  usecase "Chuẩn hóa và\nkiểm tra dữ liệu" as Validate
+  usecase "Chọn cách dự đoán\nvà xử lý giá" as Predict
+  usecase "Lưu / cập nhật\ntheo (source, id)" as Save
+
+  Submit ..> Validate : <<include>>
+  Submit ..> Predict : <<include>>
+  Submit ..> Save : <<include>>
+  Import ..> Validate : <<include>>
+  Import ..> Predict : <<include>>
+  Import ..> Save : <<include>>
+}
+
+User -- Submit
+User -- Demo
+User -- Search
+User -- Status
+Operator -- Import
+Operator -- Schedule
+Operator -- Train
+
+legend bottom
+  Nạp demo: POST /api/demo gọi pipeline, gắn is_demo=true.
+  Huấn luyện: qua CLI, cần ít nhất 50 căn có giá bán thật hợp lệ.
+  Vai trò sử dụng chưa gắn với tài khoản / phân quyền trong ứng dụng.
+endlegend
+@enduml

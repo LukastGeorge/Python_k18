@@ -1,0 +1,1008 @@
+{
+  "model_version": "vn2024-8ea036e9d9fe",
+  "created_at": "2026-11-07T03:23:38.066868+00:00",
+  "target": "asking_price_vnd",
+  "currency": "VND",
+  "scope": "Giá rao bán tham khảo tại TP.HCM và Hà Nội, học từ House Price Prediction Dataset Vietnam 2024 của Nguyen Tien Nhan trên Kaggle, phiên bản 8. Giá nguồn theo tỷ VND được đổi sang VND. Không có ngày đăng từng tin; kết quả kiểm thử là chia ngẫu nhiên theo nhóm, chưa phải dự báo theo thời gian. Tên địa bàn theo địa chỉ nguồn; chưa xác minh giá chốt giao dịch hoặc giá hiện tại.",
+  "selected_model": "XGBoost thêm địa bàn",
+  "features": [
+    "area",
+    "bedroom_count",
+    "bathroom_count",
+    "floor_count",
+    "frontage_width",
+    "road_width",
+    "province_name",
+    "district_name",
+    "ward_name",
+    "house_direction",
+    "legal_status",
+    "furniture_state"
+  ],
+  "source": {
+    "source_url": "https://www.kaggle.com/datasets/nguyentiennhan/vietnam-housing-dataset-2024",
+    "download_url": "https://www.kaggle.com/api/v1/datasets/download/nguyentiennhan/vietnam-housing-dataset-2024?datasetVersionNumber=8",
+    "title": "House Price Prediction Dataset Vietnam - 2024",
+    "creator": "Nguyen Tien Nhan",
+    "license": "CC0: Public Domain",
+    "revision": "kaggle-version-8",
+    "version": 8,
+    "last_updated": "2024-09-22T02:25:54.613Z",
+    "downloaded_at": "2026-11-07",
+    "original_price_unit": "billion VND",
+    "collection_site": "batdongsan.vn",
+    "columns": [
+      "Address",
+      "Area",
+      "Frontage",
+      "Access Road",
+      "House direction",
+      "Balcony direction",
+      "Floors",
+      "Bedrooms",
+      "Bathrooms",
+      "Legal status",
+      "Furniture state",
+      "Price"
+    ],
+    "files": [
+      {
+        "path": "vietnam_housing_dataset.csv",
+        "bytes": 3532685,
+        "sha256": "7ee188d69aca06349a81bac0c2d2d1503058d5aec7124edfd075154fa87d97c8"
+      }
+    ],
+    "archive_sha256": "2eba4312ea1f89abbe9a58f5601427f71989224d6e906c722821832dea0ea254"
+  },
+  "audit": {
+    "raw_rows": 30229,
+    "raw_columns": 12,
+    "files": 1,
+    "in_scope_rows": 22245,
+    "invalid_or_outside_price_scope": 62,
+    "optional_values_set_missing": {
+      "bedroom_count": 0,
+      "bathroom_count": 0,
+      "floor_count": 0,
+      "frontage_width": 20,
+      "road_width": 4
+    },
+    "exact_duplicate_rows_removed": 0,
+    "accepted_rows": 22183,
+    "property_proxy_groups": 17035,
+    "rows_sharing_proxy": 5148,
+    "missing_fraction": {
+      "area": 0.0,
+      "bedroom_count": 0.16215119686246224,
+      "bathroom_count": 0.23626200243429654,
+      "floor_count": 0.09408105305864851,
+      "frontage_width": 0.40846594238831535,
+      "road_width": 0.47797863228598475
+    },
+    "observed_price_billion_range": [
+      1.0,
+      11.5
+    ],
+    "deduplication": "Bỏ dòng trùng toàn bộ 12 cột. Khóa nhóm là địa chỉ chuẩn hóa và diện tích làm tròn 0,1 m², không dùng giá. Các tin cùng khóa được giữ cùng một tập; có thể gộp nhiều căn cùng địa chỉ/diện tích và bỏ sót tin đăng lại đổi cách ghi.",
+    "training_missing_fraction": {
+      "area": 0.0,
+      "bedroom_count": 0.16487535453052696,
+      "bathroom_count": 0.23854306612927303,
+      "floor_count": 0.09344678310195552,
+      "frontage_width": 0.4121510673234811,
+      "road_width": 0.4842513808031049,
+      "balcony_direction": 0.8722943722943723,
+      "province_name": 0.0,
+      "district_name": 0.0,
+      "ward_name": 0.0036572622779519333,
+      "house_direction": 0.7826541274817137,
+      "legal_status": 0.14039408866995073,
+      "furniture_state": 0.44043887147335425
+    }
+  },
+  "splits": {
+    "train": {
+      "n": 13398,
+      "groups": 10220,
+      "first_date": null,
+      "last_date": null
+    },
+    "validation": {
+      "n": 3271,
+      "groups": 2555,
+      "first_date": null,
+      "last_date": null
+    },
+    "calibration": {
+      "n": 2196,
+      "groups": 1704,
+      "first_date": null,
+      "last_date": null
+    },
+    "test": {
+      "n": 3318,
+      "groups": 2556,
+      "first_date": null,
+      "last_date": null
+    }
+  },
+  "validation_comparison": [
+    {
+      "model": "Trung vị VND/m² theo khu vực",
+      "n": 3271,
+      "mae_vnd": 1466689587.6917403,
+      "rmse_vnd": 2621297380.635461,
+      "r2": -0.6049728534507508,
+      "median_ape": 0.1755555555555556,
+      "within_20pct": 0.5509018648731275
+    },
+    {
+      "model": "XGBoost chưa dùng địa bàn",
+      "n": 3271,
+      "mae_vnd": 1232472818.7930295,
+      "rmse_vnd": 1579724064.446484,
+      "r2": 0.4170952800195622,
+      "median_ape": 0.16510897852631579,
+      "within_20pct": 0.5857535921736472
+    },
+    {
+      "model": "XGBoost thêm địa bàn",
+      "n": 3271,
+      "mae_vnd": 939047032.5649649,
+      "rmse_vnd": 1242912597.9048915,
+      "r2": 0.6391586624341006,
+      "median_ape": 0.12460013268292695,
+      "within_20pct": 0.7211861815958422
+    }
+  ],
+  "test": {
+    "n": 3318,
+    "mae_vnd": 923026681.3594474,
+    "rmse_vnd": 1225119740.583361,
+    "r2": 0.6435708815904899,
+    "median_ape": 0.12076188893337157,
+    "within_20pct": 0.72875226039783,
+    "coverage_90": 0.8963230861965039,
+    "median_interval_width_vnd": 4127471449.0905633
+  },
+  "baseline_test": {
+    "n": 3318,
+    "mae_vnd": 1473202635.9559293,
+    "rmse_vnd": 2271614358.1304007,
+    "r2": -0.2254209785511847,
+    "median_ape": 0.1806397306397306,
+    "within_20pct": 0.546112115732369
+  },
+  "locations": {
+    "Hà Nội": {
+      "Ba Đình": {
+        "wards": [
+          "Phường Cống Vị",
+          "Phường Giảng Võ",
+          "Phường Kim Mã",
+          "Phường Liễu Giai",
+          "Phường Nguyễn Trung Trực",
+          "Phường Ngọc Hà",
+          "Phường Ngọc Khánh",
+          "Phường Phúc Xá",
+          "Phường Quán Thánh",
+          "Phường Thành Công",
+          "Phường Trúc Bạch",
+          "Phường Vĩnh Phúc",
+          "Phường Điện Biên",
+          "Phường Đội Cấn"
+        ],
+        "n": 425
+      },
+      "Bắc Từ Liêm": {
+        "wards": [
+          "Phường Cổ Nhuế 1",
+          "Phường Cổ Nhuế 2",
+          "Phường Liên Mạc",
+          "Phường Minh Khai",
+          "Phường Phú Diễn",
+          "Phường Phúc Diễn",
+          "Phường Thượng Cát",
+          "Phường Thụy Phương",
+          "Phường Tây Tựu",
+          "Phường Xuân Đỉnh",
+          "Phường Đông Ngạc",
+          "Phường Đức Thắng"
+        ],
+        "n": 353
+      },
+      "Chương Mỹ": {
+        "wards": [
+          "Thị trấn Chúc Sơn",
+          "Thị trấn Xuân Mai",
+          "Xã Mỹ Lương",
+          "Xã Phú Nghĩa",
+          "Xã Phụng Châu",
+          "Xã Quảng Bị",
+          "Xã Thụy Hương",
+          "Xã Tân Tiến",
+          "Xã Đông Phương Yên",
+          "Xã Đại Yên"
+        ],
+        "n": 121
+      },
+      "Cầu Giấy": {
+        "wards": [
+          "Phường Dịch Vọng",
+          "Phường Dịch Vọng Hậu",
+          "Phường Mai Dịch",
+          "Phường Nghĩa Tân",
+          "Phường Nghĩa Đô",
+          "Phường Quan Hoa",
+          "Phường Trung Hòa",
+          "Phường Yên Hòa"
+        ],
+        "n": 447
+      },
+      "Gia Lâm": {
+        "wards": [
+          "Thị trấn Trâu Quỳ",
+          "Thị trấn Yên Viên",
+          "Xã Cổ Bi",
+          "Xã Dương Hà",
+          "Xã Dương Quang",
+          "Xã Dương Xá",
+          "Xã Kiêu Kỵ",
+          "Xã Xã Yên Viên",
+          "Xã Yên Thường",
+          "Xã Đa Tốn",
+          "Xã Đông Dư",
+          "Xã Đặng Xá"
+        ],
+        "n": 94
+      },
+      "Hai Bà Trưng": {
+        "wards": [
+          "Phường Bách Khoa",
+          "Phường Bùi Thị Xuân",
+          "Phường Bạch Mai",
+          "Phường Bạch Đằng",
+          "Phường Cầu Dền",
+          "Phường Lê Đại Hành",
+          "Phường Minh Khai",
+          "Phường Nguyễn Du",
+          "Phường Phạm Đình Hổ",
+          "Phường Phố Huế",
+          "Phường Quỳnh Lôi",
+          "Phường Quỳnh Mai",
+          "Phường Thanh Lương",
+          "Phường Thanh Nhàn",
+          "Phường Trương Định",
+          "Phường Vĩnh Tuy",
+          "Phường Đống Mác",
+          "Phường Đồng Nhân",
+          "Phường Đồng Tâm"
+        ],
+        "n": 581
+      },
+      "Hoài Đức": {
+        "wards": [
+          "Thị trấn Trạm Trôi",
+          "Xã An Khánh",
+          "Xã An Thượng",
+          "Xã Di Trạch",
+          "Xã Dương Liễu",
+          "Xã Kim Chung",
+          "Xã La Phù",
+          "Xã Lại Yên",
+          "Xã Song Phương",
+          "Xã Sơn Đồng",
+          "Xã Tiền Yên",
+          "Xã Vân Canh",
+          "Xã Vân Côn",
+          "Xã Yên Sở",
+          "Xã Đông La",
+          "Xã Đức Giang",
+          "Xã Đức Thượng"
+        ],
+        "n": 337
+      },
+      "Hoàn Kiếm": {
+        "wards": [
+          "Phường Chương Dương",
+          "Phường Cửa Nam",
+          "Phường Hàng Buồm",
+          "Phường Hàng Bài",
+          "Phường Hàng Bông",
+          "Phường Hàng Mã",
+          "Phường Phúc Tân",
+          "Phường Tràng Tiền",
+          "Phường Trần Hưng Đạo",
+          "Phường Đồng Xuân"
+        ],
+        "n": 33
+      },
+      "Hoàng Mai": {
+        "wards": [
+          "Phường Giáp Bát",
+          "Phường Hoàng Liệt",
+          "Phường Hoàng Văn Thụ",
+          "Phường Lĩnh Nam",
+          "Phường Mai Động",
+          "Phường Thanh Trì",
+          "Phường Thịnh Liệt",
+          "Phường Trần Phú",
+          "Phường Tân Mai",
+          "Phường Tương Mai",
+          "Phường Vĩnh Hưng",
+          "Phường Yên Sở",
+          "Phường Đại Kim",
+          "Phường Định Công"
+        ],
+        "n": 764
+      },
+      "Hà Đông": {
+        "wards": [
+          "Phường Biên Giang",
+          "Phường Dương Nội",
+          "Phường Hà Cầu",
+          "Phường Kiến Hưng",
+          "Phường La Khê",
+          "Phường Mỗ Lao",
+          "Phường Nguyễn Trãi",
+          "Phường Phú La",
+          "Phường Phú Lãm",
+          "Phường Phú Lương",
+          "Phường Phúc La",
+          "Phường Quang Trung",
+          "Phường Văn Quán",
+          "Phường Vạn Phúc",
+          "Phường Yên Nghĩa",
+          "Phường Yết Kiêu",
+          "Phường Đồng Mai"
+        ],
+        "n": 986
+      },
+      "Long Biên": {
+        "wards": [
+          "Phường Bồ Đề",
+          "Phường Cự Khối",
+          "Phường Gia Thụy",
+          "Phường Giang Biên",
+          "Phường Long Biên",
+          "Phường Ngọc Lâm",
+          "Phường Ngọc Thụy",
+          "Phường Phúc Lợi",
+          "Phường Phúc Đồng",
+          "Phường Sài Đồng",
+          "Phường Thượng Thanh",
+          "Phường Thạch Bàn",
+          "Phường Việt Hưng",
+          "Phường Đức Giang",
+          "phường Long Biên"
+        ],
+        "n": 940
+      },
+      "Nam Từ Liêm": {
+        "wards": [
+          "Phường Cầu Diễn",
+          "Phường Mễ Trì",
+          "Phường Mỹ Đình 1",
+          "Phường Mỹ Đình 2",
+          "Phường Phú Đô",
+          "Phường Phương Canh",
+          "Phường Trung Văn",
+          "Phường Tây Mỗ",
+          "Phường Xuân Phương",
+          "Phường Đại Mỗ",
+          "Thị trấn Cầu Diễn"
+        ],
+        "n": 562
+      },
+      "Quốc Oai": {
+        "wards": [
+          "Xã Phượng Cách",
+          "Xã Tân Phú",
+          "Xã Yên Sơn",
+          "Xã Đông Yên",
+          "Xã Đại Thành"
+        ],
+        "n": 66
+      },
+      "Thanh Oai": {
+        "wards": [
+          "Xã Bình Minh",
+          "Xã Bích Hòa",
+          "Xã Cao Viên",
+          "Xã Cự Khê",
+          "Xã Mỹ Hưng",
+          "Xã Tam Hưng",
+          "Xã Thanh Cao"
+        ],
+        "n": 41
+      },
+      "Thanh Trì": {
+        "wards": [
+          "Thị trấn Văn Điển",
+          "Xã Duyên Hà",
+          "Xã Hữu Hòa",
+          "Xã Liên Ninh",
+          "Xã Ngũ Hiệp",
+          "Xã Ngọc Hồi",
+          "Xã Tam Hiệp",
+          "Xã Thanh Liệt",
+          "Xã Tân Triều",
+          "Xã Tả Thanh Oai",
+          "Xã Tứ Hiệp",
+          "Xã Vĩnh Quỳnh",
+          "Xã Vạn Phúc",
+          "Xã Yên Mỹ",
+          "Xã Đông Mỹ"
+        ],
+        "n": 303
+      },
+      "Thanh Xuân": {
+        "wards": [
+          "Phường Hạ Đình",
+          "Phường Khương Mai",
+          "Phường Khương Trung",
+          "Phường Khương Đình",
+          "Phường Kim Giang",
+          "Phường Nhân Chính",
+          "Phường Phương Liệt",
+          "Phường Thanh Xuân Bắc",
+          "Phường Thanh Xuân Nam",
+          "Phường Thanh Xuân Trung",
+          "Phường Thượng Đình"
+        ],
+        "n": 547
+      },
+      "Thường Tín": {
+        "wards": [
+          "Thị trấn Thường Tín",
+          "Xã Chương Dương",
+          "Xã Duyên Thái",
+          "Xã Liên Phương",
+          "Xã Nhị Khê",
+          "Xã Ninh Sở",
+          "Xã Văn Bình"
+        ],
+        "n": 30
+      },
+      "Tây Hồ": {
+        "wards": [
+          "Phường Bưởi",
+          "Phường Nhật Tân",
+          "Phường Phú Thượng",
+          "Phường Quảng An",
+          "Phường Thụy Khuê",
+          "Phường Tứ Liên",
+          "Phường Xuân La",
+          "Phường Yên Phụ"
+        ],
+        "n": 297
+      },
+      "Đông Anh": {
+        "wards": [
+          "Thị trấn Đông Anh",
+          "Xã Bắc Hồng",
+          "Xã Hải Bối",
+          "Xã Kim Chung",
+          "Xã Liên Hà",
+          "Xã Mai Lâm",
+          "Xã Nam Hồng",
+          "Xã Nguyên Khê",
+          "Xã Tiên Dương",
+          "Xã Uy Nỗ",
+          "Xã Việt Hùng",
+          "Xã Vân Hà",
+          "Xã Vân Nội",
+          "Xã Võng La",
+          "Xã Vĩnh Ngọc",
+          "Xã Xuân Canh",
+          "Xã Xuân Nộn",
+          "Xã Đông Hội",
+          "Xã Đại Mạch"
+        ],
+        "n": 96
+      },
+      "Đống Đa": {
+        "wards": [
+          "Phường Cát Linh",
+          "Phường Hàng Bột",
+          "Phường Khâm Thiên",
+          "Phường Khương Thượng",
+          "Phường Kim Liên",
+          "Phường Láng Hạ",
+          "Phường Láng Thượng",
+          "Phường Nam Đồng",
+          "Phường Ngã Tư Sở",
+          "Phường Phương Liên",
+          "Phường Phương Mai",
+          "Phường Quang Trung",
+          "Phường Quốc Tử Giám",
+          "Phường Thịnh Quang",
+          "Phường Thổ Quan",
+          "Phường Trung Liệt",
+          "Phường Trung Phụng",
+          "Phường Trung Tự",
+          "Phường Văn Chương",
+          "Phường Văn Miếu",
+          "Phường Ô Chợ Dừa"
+        ],
+        "n": 760
+      }
+    },
+    "Hồ Chí Minh": {
+      "Bình Chánh": {
+        "wards": [
+          "Thị trấn Tân Túc",
+          "Xã An Phú Tây",
+          "Xã Bình Chánh",
+          "Xã Bình Hưng",
+          "Xã Hưng Long",
+          "Xã Lê Minh Xuân",
+          "Xã Phong Phú",
+          "Xã Phạm Văn Hai",
+          "Xã Qui Đức",
+          "Xã Tân Kiên",
+          "Xã Tân Nhựt",
+          "Xã Tân Quý Tây",
+          "Xã Vĩnh Lộc A",
+          "Xã Vĩnh Lộc B",
+          "Xã Đa Phước"
+        ],
+        "n": 158
+      },
+      "Bình Thạnh": {
+        "wards": [
+          "Phường 1",
+          "Phường 11",
+          "Phường 12",
+          "Phường 13",
+          "Phường 14",
+          "Phường 15",
+          "Phường 17",
+          "Phường 19",
+          "Phường 2",
+          "Phường 21",
+          "Phường 22",
+          "Phường 24",
+          "Phường 25",
+          "Phường 26",
+          "Phường 27",
+          "Phường 28",
+          "Phường 3",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7"
+        ],
+        "n": 642
+      },
+      "Bình Tân": {
+        "wards": [
+          "Phường An Lạc",
+          "Phường An Lạc A",
+          "Phường Bình Hưng Hòa",
+          "Phường Bình Hưng Hòa A",
+          "Phường Bình Hưng Hòa B",
+          "Phường Bình Trị Đông",
+          "Phường Bình Trị Đông A",
+          "Phường Bình Trị Đông B",
+          "Phường Tân Tạo",
+          "Phường Tân Tạo A"
+        ],
+        "n": 881
+      },
+      "Củ Chi": {
+        "wards": [
+          "Xã An Nhơn Tây",
+          "Xã Bình Mỹ",
+          "Xã Hòa Phú",
+          "Xã Phú Hòa Đông",
+          "Xã Phước Hiệp",
+          "Xã Phước Thạnh",
+          "Xã Phước Vĩnh An",
+          "Xã Phạm Văn Cội",
+          "Xã Tân An Hội",
+          "Xã Tân Phú Trung",
+          "Xã Tân Thông Hội",
+          "Xã Tân Thạnh Đông"
+        ],
+        "n": 31
+      },
+      "Gò Vấp": {
+        "wards": [
+          "Phường 1",
+          "Phường 10",
+          "Phường 11",
+          "Phường 12",
+          "Phường 13",
+          "Phường 14",
+          "Phường 15",
+          "Phường 16",
+          "Phường 17",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+          "Phường 9"
+        ],
+        "n": 1008
+      },
+      "Hóc Môn": {
+        "wards": [
+          "Thị trấn Hóc Môn",
+          "Xã Bà Điểm",
+          "Xã Nhị Bình",
+          "Xã Thới Tam Thôn",
+          "Xã Trung Chánh",
+          "Xã Tân Hiệp",
+          "Xã Tân Thới Nhì",
+          "Xã Tân Xuân",
+          "Xã Xuân Thới Sơn",
+          "Xã Xuân Thới Thượng",
+          "Xã Xuân Thới Đông",
+          "Xã Đông Thạnh"
+        ],
+        "n": 187
+      },
+      "Nhà Bè": {
+        "wards": [
+          "Thị trấn Nhà Bè",
+          "Xã Hiệp Phước",
+          "Xã Long Thới",
+          "Xã Nhơn Đức",
+          "Xã Phú Xuân",
+          "Xã Phước Kiển",
+          "Xã Phước Lộc"
+        ],
+        "n": 272
+      },
+      "Phú Nhuận": {
+        "wards": [
+          "Phường 1",
+          "Phường 10",
+          "Phường 11",
+          "Phường 12",
+          "Phường 13",
+          "Phường 14",
+          "Phường 15",
+          "Phường 17",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 7",
+          "Phường 8",
+          "Phường 9"
+        ],
+        "n": 274
+      },
+      "Quận 1": {
+        "wards": [
+          "Phường Bến Thành",
+          "Phường Cô Giang",
+          "Phường Cầu Kho",
+          "Phường Cầu Ông Lãnh",
+          "Phường Nguyễn Cư Trinh",
+          "Phường Phạm Ngũ Lão",
+          "Phường Tân Định",
+          "Phường Đa Kao"
+        ],
+        "n": 74
+      },
+      "Quận 10": {
+        "wards": [
+          "Phường 1",
+          "Phường 10",
+          "Phường 11",
+          "Phường 12",
+          "Phường 13",
+          "Phường 14",
+          "Phường 15",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 8",
+          "Phường 9"
+        ],
+        "n": 219
+      },
+      "Quận 11": {
+        "wards": [
+          "Phường 1",
+          "Phường 10",
+          "Phường 11",
+          "Phường 12",
+          "Phường 13",
+          "Phường 14",
+          "Phường 15",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+          "Phường 9"
+        ],
+        "n": 104
+      },
+      "Quận 12": {
+        "wards": [
+          "Phường An Phú Đông",
+          "Phường Hiệp Thành",
+          "Phường Thạnh Lộc",
+          "Phường Thạnh Xuân",
+          "Phường Thới An",
+          "Phường Trung Mỹ Tây",
+          "Phường Tân Chánh Hiệp",
+          "Phường Tân Hưng Thuận",
+          "Phường Tân Thới Hiệp",
+          "Phường Tân Thới Nhất",
+          "Phường Đông Hưng Thuận"
+        ],
+        "n": 696
+      },
+      "Quận 2": {
+        "wards": [
+          "Phường An Phú",
+          "Phường Bình An",
+          "Phường Bình Trưng Tây",
+          "Phường Bình Trưng Đông",
+          "Phường Cát Lái",
+          "Phường Thạnh Mỹ Lợi",
+          "Phường Thảo Điền"
+        ],
+        "n": 156
+      },
+      "Quận 3": {
+        "wards": [
+          "Phường 1",
+          "Phường 10",
+          "Phường 11",
+          "Phường 12",
+          "Phường 13",
+          "Phường 14",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 9",
+          "Phường Võ Thị Sáu"
+        ],
+        "n": 166
+      },
+      "Quận 4": {
+        "wards": [
+          "Phường 1",
+          "Phường 10",
+          "Phường 12",
+          "Phường 13",
+          "Phường 14",
+          "Phường 15",
+          "Phường 16",
+          "Phường 18",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 6",
+          "Phường 8",
+          "Phường 9"
+        ],
+        "n": 102
+      },
+      "Quận 5": {
+        "wards": [
+          "Phường 1",
+          "Phường 12",
+          "Phường 15",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 9"
+        ],
+        "n": 40
+      },
+      "Quận 6": {
+        "wards": [
+          "Phường 10",
+          "Phường 11",
+          "Phường 12",
+          "Phường 13",
+          "Phường 14",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+          "Phường 9"
+        ],
+        "n": 187
+      },
+      "Quận 7": {
+        "wards": [
+          "Phường Bình Thuận",
+          "Phường Phú Mỹ",
+          "Phường Phú Thuận",
+          "Phường Tân Hưng",
+          "Phường Tân Kiểng",
+          "Phường Tân Phong",
+          "Phường Tân Phú",
+          "Phường Tân Quy",
+          "Phường Tân Thuận Tây",
+          "Phường Tân Thuận Đông"
+        ],
+        "n": 480
+      },
+      "Quận 8": {
+        "wards": [
+          "Phường 1",
+          "Phường 10",
+          "Phường 11",
+          "Phường 12",
+          "Phường 13",
+          "Phường 14",
+          "Phường 15",
+          "Phường 16",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+          "Phường 9"
+        ],
+        "n": 345
+      },
+      "Quận 9": {
+        "wards": [
+          "Phường Hiệp Phú",
+          "Phường Long Bình",
+          "Phường Long Phước",
+          "Phường Long Thạnh Mỹ",
+          "Phường Long Trường",
+          "Phường Phú Hữu",
+          "Phường Phước Bình",
+          "Phường Phước Long A",
+          "Phường Phước Long B",
+          "Phường Trường Thạnh",
+          "Phường Tân Phú",
+          "Phường Tăng Nhơn Phú A",
+          "Phường Tăng Nhơn Phú B"
+        ],
+        "n": 545
+      },
+      "Thủ Đức": {
+        "wards": [
+          "Phường Bình Chiểu",
+          "Phường Bình Thọ",
+          "Phường Bình Trưng Tây",
+          "Phường Bình Trưng Đông",
+          "Phường Hiệp Bình Chánh",
+          "Phường Hiệp Bình Phước",
+          "Phường Hiệp Phú",
+          "Phường Linh Chiểu",
+          "Phường Linh Trung",
+          "Phường Linh Tây",
+          "Phường Linh Xuân",
+          "Phường Linh Đông",
+          "Phường Long Thạnh Mỹ",
+          "Phường Long Trường",
+          "Phường Phú Hữu",
+          "Phường Phước Bình",
+          "Phường Phước Long A",
+          "Phường Phước Long B",
+          "Phường Tam Bình",
+          "Phường Tam Phú",
+          "Phường Trường Thạnh",
+          "Phường Trường Thọ",
+          "Phường Tân Phú",
+          "Phường Tăng Nhơn Phú A",
+          "Phường Tăng Nhơn Phú B"
+        ],
+        "n": 859
+      },
+      "Tân Bình": {
+        "wards": [
+          "Phường 1",
+          "Phường 10",
+          "Phường 11",
+          "Phường 12",
+          "Phường 13",
+          "Phường 14",
+          "Phường 15",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+          "Phường 9",
+          "phường 15"
+        ],
+        "n": 631
+      },
+      "Tân Phú": {
+        "wards": [
+          "Phường Hiệp Tân",
+          "Phường Hòa Thạnh",
+          "Phường Phú Thạnh",
+          "Phường Phú Thọ Hòa",
+          "Phường Phú Trung",
+          "Phường Sơn Kỳ",
+          "Phường Tân Quý",
+          "Phường Tân Sơn Nhì",
+          "Phường Tân Thành",
+          "Phường Tân Thới Hòa",
+          "Phường Tây Thạnh"
+        ],
+        "n": 773
+      }
+    }
+  },
+  "area_ranges": {
+    "Hà Nội": [
+      21.252,
+      116.0
+    ],
+    "Hồ Chí Minh": [
+      20.0,
+      195.6900000000005
+    ]
+  },
+  "split_method": "GroupShuffleSplit by normalized Address + rounded Area; 60/15/10/15 percent of proxy groups; seeds 42/43/44.",
+  "time_validation": false,
+  "property_types_available": false,
+  "calibration": {
+    "nominal_coverage": 0.9,
+    "q_log_vnd": 0.32342342156284687,
+    "method": "split conformal absolute log residual"
+  },
+  "amenities_available": false,
+  "limitations": [
+    "Nguồn Kaggle phiên bản 8 năm 2024; không đại diện toàn bộ thị trường.",
+    "Price là giá rao theo tỷ VND, được nhân 1.000.000.000; chưa xác minh giao dịch.",
+    "Không có ngày đăng từng tin; chia ngẫu nhiên theo nhóm, chưa đánh giá dự báo ở thời kỳ tương lai.",
+    "Không có cột loại nhà; không tự gán nhãn nhà riêng, căn hộ hoặc biệt thự.",
+    "Chưa có mã nhà độc lập; nhóm địa chỉ và diện tích có thể gộp nhầm căn khác hoặc bỏ sót tin đăng lại.",
+    "Không có tọa độ/POI xác minh; không suy diễn gần trường/cửa hàng từ lời quảng cáo.",
+    "Dữ liệu giữ lại có giá 1–11,5 tỷ VND; không suy rộng chất lượng sang phân khúc giá cao hơn.",
+    "Diện tích theo tin đăng có thể là diện tích đất hoặc sàn; đơn giá chỉ dùng diện tích khai báo.",
+    "Giới hạn giá 0,5–200 tỷ, diện tích 15–1.000m², đơn giá 5–800 triệu/m².",
+    "Khoảng 90% không bảo đảm độ phủ khi chuyển thời kỳ hoặc phân khúc."
+  ],
+  "test_breakdown": [
+    {
+      "dimension": "province_name",
+      "label": "Hà Nội",
+      "n": 1591,
+      "mae_vnd": 938258261.9305695,
+      "rmse_vnd": 1242671970.2057252,
+      "r2": 0.6123601396063996,
+      "median_ape": 0.1255948486154815,
+      "within_20pct": 0.7115021998742929,
+      "coverage_90": 0.9025769956002514
+    },
+    {
+      "dimension": "province_name",
+      "label": "Hồ Chí Minh",
+      "n": 1727,
+      "mae_vnd": 908994576.733706,
+      "rmse_vnd": 1208724193.6565058,
+      "r2": 0.6686186938263756,
+      "median_ape": 0.11735631976355984,
+      "within_20pct": 0.7446438911407064,
+      "coverage_90": 0.8905616676317313
+    }
+  ]
+}

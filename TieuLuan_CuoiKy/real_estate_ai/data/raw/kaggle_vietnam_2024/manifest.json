@@ -1,0 +1,35 @@
+{
+  "source_url": "https://www.kaggle.com/datasets/nguyentiennhan/vietnam-housing-dataset-2024",
+  "download_url": "https://www.kaggle.com/api/v1/datasets/download/nguyentiennhan/vietnam-housing-dataset-2024?datasetVersionNumber=8",
+  "title": "House Price Prediction Dataset Vietnam - 2024",
+  "creator": "Nguyen Tien Nhan",
+  "license": "CC0: Public Domain",
+  "revision": "kaggle-version-8",
+  "version": 8,
+  "last_updated": "2024-09-22T02:25:54.613Z",
+  "downloaded_at": "2026-11-07",
+  "original_price_unit": "billion VND",
+  "collection_site": "batdongsan.vn",
+  "columns": [
+    "Address",
+    "Area",
+    "Frontage",
+    "Access Road",
+    "House direction",
+    "Balcony direction",
+    "Floors",
+    "Bedrooms",
+    "Bathrooms",
+    "Legal status",
+    "Furniture state",
+    "Price"
+  ],
+  "files": [
+    {
+      "path": "vietnam_housing_dataset.csv",
+      "bytes": 3532685,
+      "sha256": "7ee188d69aca06349a81bac0c2d2d1503058d5aec7124edfd075154fa87d97c8"
+    }
+  ],
+  "archive_sha256": "2eba4312ea1f89abbe9a58f5601427f71989224d6e906c722821832dea0ea254"
+}

@@ -1,0 +1,27 @@
+# Allow only application source and required dependency files into the build.
+*
+!backend/
+!backend/**
+!frontend/
+!frontend/**
+!requirements/
+!requirements/base.txt
+!requirements/production.txt
+!pytest.ini
+!data/
+!data/raw/
+!data/raw/kc_house_data.csv
+!data/raw/kaggle_vietnam_2024/
+!data/raw/kaggle_vietnam_2024/vietnam_housing_dataset.csv
+!data/raw/kaggle_vietnam_2024/manifest.json
+!data/context/
+!data/context/**
+!artifacts/
+!artifacts/kingcounty/
+!artifacts/kingcounty/charts/
+!artifacts/kingcounty/charts/**
+!artifacts/vietnam/
+!artifacts/vietnam/**
+**/__pycache__/
+**/*.pyc
+**/.env

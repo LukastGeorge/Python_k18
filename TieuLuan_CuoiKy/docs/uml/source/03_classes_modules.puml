@@ -1,0 +1,85 @@
+@startuml
+!include theme.iuml
+title 03. Lớp và module — Cấu trúc mã nguồn và bảng dữ liệu
+top to bottom direction
+hide empty members
+hide circle
+
+class "web_app.py" as Web <<module>> {
+  + create_app(engine=None, model_path) : Flask
+  + serialize_record(row) : dict
+  + main(argv=None)
+}
+class "data_pipeline.py" as Pipeline <<module>> {
+  + scrape_hourly_news() : DataFrame
+  + read_input_csv(csv_path) : DataFrame
+  + clean_data(df, is_demo, source) : DataFrame
+  + run_pipeline(csv_path, engine, model_path, source) : DataFrame
+}
+class RealEstateAI {
+  + model : predictor [0..1]
+  + method : str
+  + __init__(model_path, allow_demo=False)
+  + predict_price(clean_data) : ndarray
+}
+class "validation.py" as Validation <<module>> {
+  + validate_features(frame) : DataFrame
+}
+class "database.py" as Persistence <<module>> {
+  + metadata : MetaData
+  + records : Table
+  + save_records(engine, frame) : int
+  + load_training_data(engine) : DataFrame
+}
+class "retrain_model.py" as Trainer <<module>> {
+  + load_data_from_db(engine=None) : DataFrame
+  + remove_outliers(df) : DataFrame
+  + train_model(df, model_path) : dict | None
+  + execute_retrain(engine, model_path) : dict | None
+}
+class "config.py" as Config <<module>> {
+  + FEATURES : list[str]
+  + ROOT, MODEL_PATH, STORAGE_DIR : Path
+  + get_engine() : Engine
+  + configure_console()
+}
+class "real_estate_records" as Record <<table>> {
+  {field} source : String(160) <<PK>>
+  {field} id : String(160) <<PK>>
+  {field} title : String(1000)
+  {field} dien_tich : Float
+  {field} so_phong_ngu : Integer
+  {field} latitude : Float
+  {field} longitude : Float
+  {field} actual_price : Float [0..1]
+  {field} price_kind : String(20)
+  {field} predicted_price : Float [0..1]
+  {field} prediction_method : String(40)
+  {field} is_demo : Boolean
+  {field} updated_at : DateTime(timezone=True)
+}
+
+Web ..> Pipeline : làm sạch / demo
+Web ..> RealEstateAI : khởi tạo
+Web ..> Persistence : lưu / truy vấn Table
+Web ..> Config : Engine, đường dẫn
+Pipeline ..> RealEstateAI : khởi tạo
+Pipeline ..> Persistence : lưu
+Pipeline ..> Validation : kiểm tra
+RealEstateAI ..> Validation : kiểm tra
+RealEstateAI ..> Config : FEATURES, MODEL_PATH
+Trainer ..> Persistence : đọc nhãn thật
+Trainer ..> Config : Engine, FEATURES
+Persistence --> Record : định nghĩa / thao tác
+
+note bottom of Record
+  Khóa chính ghép: (source, id).
+  Chỉ actual_price và predicted_price được NULL.
+  UPSERT cập nhật các trường ngoài khóa chính.
+end note
+legend left
+  <<module>>: module Python chứa hàm, không phải lớp dịch vụ.
+  <<table>>: bảng SQLAlchemy Core, không phải lớp ORM.
+  Đường nét đứt: phụ thuộc / gọi hàm. Không mô tả kế thừa giả định.
+endlegend
+@enduml

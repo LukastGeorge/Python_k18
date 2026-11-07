@@ -1,0 +1,10 @@
+{
+  "usd_vnd": 25780.0,
+  "quote_kind": "Vietcombank USD sell",
+  "source_url": "https://portal.vietcombank.com.vn/Usercontrols/TVPortal.TyGia/pXML.aspx?b=1",
+  "source_page": "https://www.vietcombank.com.vn/vi-VN/KHCN/Cong-cu-tien-ich/Ty-gia",
+  "quoted_at": "11/7/2026 12:39:49 AM",
+  "retrieved_at": "2026-11-06T17:41:58.606994+00:00",
+  "sha256": "fa614c393979d637523813fffc2dcff9dd025cb681979f41ab363d3ef5e0c279",
+  "meaning": "Currency conversion of historical US house prices; not a Vietnamese market valuation."
+}

@@ -1,0 +1,71 @@
+@startuml
+!include theme.iuml
+title 04. Tuần tự — Nhập nhà, dự đoán và lưu
+hide footbox
+autonumber
+
+actor "Người dùng" as User
+boundary "UI\napp.js" as UI
+control "Flask API\nweb_app.py" as API
+control "clean_data()\nvalidation.py" as Clean
+control "RealEstateAI" as AI
+database "SQLite / PostgreSQL" as DB
+
+User -> UI : Nhập thông tin; nhấn Dự đoán và lưu
+UI -> API : POST /api/records\nContent-Type: application/json
+API -> API : Kiểm tra Content-Type, Origin, payload
+break Yêu cầu không đúng cấu trúc
+  API --> UI : HTTP 415 / 403 / 400 + JSON error
+  UI --> User : Hiển thị lỗi; kết thúc yêu cầu
+end
+
+API -> Clean : clean_data(raw, is_demo, source)
+Clean -> Clean : Chuẩn hóa và kiểm tra đặc trưng / giá
+break ValueError khi dữ liệu không hợp lệ
+  Clean --> API : ValueError
+  API --> UI : HTTP 400 + JSON error; không lưu
+end
+Clean --> API : DataFrame hợp lệ
+
+API -> AI : __init__(model_path, allow_demo=is_demo)
+break File mô hình hỏng hoặc bundle sai định dạng
+  AI --> API : ValueError
+  API --> UI : HTTP 400 + JSON error; không lưu
+end
+
+API -> AI : predict_price(frame)
+AI -> AI : Kiểm tra đặc trưng; chọn cách dự đoán\nKiểm tra giá mô hình / công thức
+break Mô hình trả giá không hợp lệ
+  AI --> API : ValueError
+  API --> UI : HTTP 400 + JSON error; không lưu
+end
+alt Có mô hình VND hợp lệ
+  AI --> API : Giá; method=trained_model
+else Chưa có mô hình, mode=demo
+  AI --> API : diện tích × 40 triệu + phòng × 50 triệu\nmethod=demo_formula
+else Chưa có mô hình, mode=real
+  AI --> API : NaN; method=unavailable
+end
+
+API -> API : Gán prediction_method, updated_at
+API -> DB : ensure_tables(); save_records()\nUPSERT (source, id); NaN thành NULL
+alt Kết nối / thao tác SQL lỗi
+  DB --> API : SQLAlchemyError
+  API --> UI : HTTP 503 + JSON error
+  UI --> User : Hiển thị hướng dẫn kết nối
+else Lưu thành công
+  DB --> API : Hoàn tất transaction
+  API --> UI : HTTP 200; item + message\npredicted_price có thể null
+  ref over UI, DB
+    Làm mới: GET /api/status, rồi GET /api/records
+    API SELECT thống kê / danh sách và trả JSON tương ứng
+  end ref
+  UI --> User : Hiển thị kết quả, thống kê và danh sách mới
+end
+
+legend bottom
+  break: nhánh lỗi có điều kiện; dừng phần còn lại của yêu cầu khi xảy ra.
+  mode=real dùng source=web; mode=demo dùng source=web_demo.
+  Cùng (source, id) cập nhật bản ghi, không tạo dòng trùng.
+endlegend
+@enduml

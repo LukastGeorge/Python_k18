@@ -1,0 +1,38 @@
+@startuml
+!include theme.iuml
+title 02. Thành phần — UI, API, pipeline và lưu trữ
+top to bottom direction
+
+component "Trình duyệt\nHTML / CSS / JavaScript" as UI
+component "CLI / lịch chạy\nrun_hourly.py" as CLI
+artifact "CSV đầu vào\ndata/input/" as CSV
+
+package "Ứng dụng Python — real_estate_ai/backend" {
+  component "Flask API\nweb_app.py" as API
+  component "Pipeline và làm sạch\ndata_pipeline.py\nvalidation.py" as Pipeline
+  component "RealEstateAI\nmodel_inference.py" as AI
+  component "SQLAlchemy Core\nconfig.py + database.py\nEngine, Table, UPSERT" as Persistence
+  component "Huấn luyện XGBoost\nretrain_model.py" as Trainer
+}
+
+database "SQLite hoặc PostgreSQL\nreal_estate_records" as DB
+artifact "house_model.pkl\nhouse_model.metrics.json\nmodels/" as Model
+
+UI --> API : HTTP cùng nguồn\nHTML / JSON API
+CLI --> Pipeline : run_pipeline()
+CSV --> Pipeline : read_input_csv()
+API --> Pipeline : clean_data()\nrun_pipeline() khi nạp demo
+API --> AI : tạo / dự đoán
+API --> Persistence : Table / Engine\nSELECT và save_records()
+Pipeline --> AI : predict_price()
+Pipeline --> Persistence : save_records()
+AI --> Model : đọc bundle .pkl
+Trainer --> Persistence : load_training_data()
+Trainer --> Model : ghi bundle + metrics
+Persistence --> DB : SELECT / UPSERT\n(source, id)
+legend bottom
+  API viết SELECT thống kê / danh sách trực tiếp bằng Engine và Table.
+  clean_data() và RealEstateAI dùng chung validate_features().
+  Mỗi tiến trình chọn SQLite hoặc PostgreSQL; notebook USD chạy riêng.
+endlegend
+@enduml

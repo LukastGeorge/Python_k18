@@ -1,0 +1,42 @@
+[
+  {
+    "label": "Hà Nội · Hà Đông",
+    "input": {
+      "area": 31.0,
+      "bedroom_count": 4.0,
+      "bathroom_count": 4.0,
+      "floor_count": 5.0,
+      "frontage_width": 3.3,
+      "road_width": 2.5,
+      "province_name": "Hà Nội",
+      "district_name": "Hà Đông",
+      "ward_name": "Phường Vạn Phúc",
+      "house_direction": "Tây - Nam",
+      "legal_status": "Have certificate",
+      "furniture_state": "Basic",
+      "reference_id": "0131f4af270516027cdc5f07"
+    },
+    "asking_vnd": 5800000000.0,
+    "published_at": null
+  },
+  {
+    "label": "Hồ Chí Minh · Quận 2",
+    "input": {
+      "area": 52.0,
+      "bedroom_count": 5.0,
+      "bathroom_count": 3.0,
+      "floor_count": 4.0,
+      "frontage_width": null,
+      "road_width": 5.0,
+      "province_name": "Hồ Chí Minh",
+      "district_name": "Quận 2",
+      "ward_name": "Phường Bình Trưng Tây",
+      "house_direction": "Không rõ",
+      "legal_status": "Không rõ",
+      "furniture_state": "Không rõ",
+      "reference_id": "801aaeca1aaba2e98c5dfb7c"
+    },
+    "asking_vnd": 6300000000.0,
+    "published_at": null
+  }
+]

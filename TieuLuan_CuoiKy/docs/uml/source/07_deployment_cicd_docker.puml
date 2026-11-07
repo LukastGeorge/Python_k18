@@ -1,0 +1,56 @@
+@startuml
+!include theme.iuml
+title 07. Triển khai — CI/CD và Docker Compose
+top to bottom direction
+
+node "GitHub" as GitHub {
+  artifact "Repository Python_k18\nmain / pull request\n.github/workflows/tieuluan-cuoiky.yml" as Repo
+  node "GitHub Actions — runner CI tạm" as CIRunner {
+    component "CI: build + pytest + kiểm tra container\nJavaScript; checksum; UI/API; ML imports" as CI
+    database "PostgreSQL 17\nchỉ dùng kiểm thử" as TestDB
+    artifact "Image đã kiểm thử\nimage.tar.gz + image-id.txt" as Tested
+  }
+  node "GitHub Actions — runner CD tạm" as CDRunner {
+    component "CD: tải artifact; so sánh image ID\nđăng nhập bằng GITHUB_TOKEN; push" as CD
+  }
+  node "GitHub Container Registry" as Registry {
+    artifact "ghcr.io/lukastgeorge/\npython-k18-cuoiky\n:latest và :sha-<commit>" as Image
+  }
+}
+
+node "Máy người dùng — Docker Desktop / Linux containers" as Host {
+  node "Container app — Python 3.12" as App {
+    component "Waitress :8000\nFlask API + frontend" as Server
+    database "SQLite\n/app/storage/real_estate.db" as LocalDB
+    artifact "/app/models/\nhouse_model.pkl (nếu có)" as LocalModel
+  }
+  artifact "Named volume\ncuoiky-data" as DataVolume
+  artifact "Named volume\ncuoiky-models" as ModelVolume
+}
+node "Trình duyệt trên máy người dùng" as Browser {
+  component "UI\nhttp://127.0.0.1:8000" as UI
+}
+
+Repo --> CI : push / PR vào main\nhoặc workflow_dispatch
+CI --> TestDB : kiểm thử qua Engine\nschema riêng, tự dọn
+CI --> Tested : docker save\nsau khi kiểm tra đạt
+Tested --> CD : cùng workflow; needs: ci\nchỉ main, không phải PR
+CD --> Image : HTTPS / GHCR\npush đúng image đã kiểm thử
+Image --> App : docker compose pull / up -d\nngười dùng chủ động chạy
+UI --> Server : HTTP cùng nguồn\n127.0.0.1:8000 → container:8000
+Server --> LocalDB : SQLAlchemy / SQLite
+Server --> LocalModel : đọc nếu có
+LocalDB -- DataVolume : mount /app/storage
+LocalModel -- ModelVolume : mount /app/models
+
+note bottom of App
+  Compose mặc định chọn SQLite.
+  Có thể cấu hình Engine dùng PostgreSQL ngoài container.
+  File DB trên host khi chạy Python không tự chuyển vào volume.
+end note
+note bottom of CDRunner
+  CD xuất bản image, chưa tự triển khai lên hosting / VPS.
+  Quyền packages:write chỉ cấp cho job CD.
+  Image không đóng gói .env, DB cá nhân hoặc mô hình đã train.
+end note
+@enduml

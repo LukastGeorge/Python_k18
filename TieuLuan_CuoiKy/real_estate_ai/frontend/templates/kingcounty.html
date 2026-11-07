@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nhà & Giá · King County</title><link rel="icon" href="/static/house.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/static/kingcounty.css"><script src="/static/kingcounty.js" defer></script></head>
+<body><header><a class="brand" href="/">Nhà <span>&</span> Giá</a><nav aria-label="Điều hướng"><a href="#valuation">Định giá</a><a href="#evidence">Phân tích dữ liệu</a><a href="#sources">Nguồn</a></nav><span class="tag">KING COUNTY · USA</span></header>
+<main><section class="hero"><p class="eyebrow">DỮ LIỆU GIAO DỊCH 2014–2015</p><h1>Dự đoán giá nhà<br><span>Có dữ liệu để giải thích</span></h1><p>Diện tích, phòng tắm, chất lượng và vị trí cùng tạo nên giá trị một căn nhà. Xem mô hình dự đoán, khoảng sai số và những giao dịch để đối chiếu.</p><p class="scope">Nhà tại King County, Washington, Mỹ. Giá hiển thị bằng VND quy đổi, theo bối cảnh giao dịch lịch sử.</p></section>
+<div id="load-error" class="notice error" role="alert" hidden></div>
+<section class="metrics" aria-label="Kết quả kiểm chứng"><div><span>Giao dịch hợp lệ</span><strong id="metric-rows">—</strong></div><div><span>R² trên giao dịch mới hơn</span><strong id="metric-r2">—</strong></div><div><span>Sai lệch không quá ±20%</span><strong id="metric-20">—</strong></div><div><span>1 USD quy đổi</span><strong id="metric-fx">—</strong></div></section>
+<section id="valuation" class="valuation"><div><h2>Thông tin căn nhà</h2><p class="muted">Diện tích ở và diện tích đất được nhập riêng, đơn vị m².</p><label class="example-label" for="example">Thử bằng căn nhà trong tập test</label><select id="example"><option value="">Tự nhập thông tin</option></select>
+<form id="kc-form"><fieldset><legend>Diện tích và kết cấu</legend><div class="fields">
+<label>Diện tích ở (m²)<input name="living_m2" type="number" step="any" required></label>
+<label>Diện tích đất (m²)<input name="lot_m2" type="number" step="any" required></label>
+<label>Phòng ngủ<input name="bedrooms" type="number" step="1" required></label>
+<label>Phòng tắm quy đổi<input name="bathrooms" type="number" step="0.25" required><small>Đầy đủ = 1, ba phần tư = 0,75, nửa = 0,5</small></label>
+<label>Số tầng<input name="floors" type="number" step="0.5" required></label>
+<label>Chất lượng xây dựng<input name="grade" type="number" step="1" required><small>Hạng grade trong hồ sơ King County</small></label></div></fieldset>
+<fieldset><legend>Vị trí và thời điểm</legend><div class="fields">
+<label>Vĩ độ<input name="latitude" type="number" step="any" required></label><label>Kinh độ<input name="longitude" type="number" step="any" required></label>
+<label>Mã bưu chính<select name="zipcode" required></select></label><label>Ngày định giá lịch sử<input name="sale_date" type="date" min="2014-05-02" max="2015-05-27" required></label></div></fieldset>
+<details><summary>Tuổi nhà, tình trạng và môi trường</summary><div class="fields advanced">
+<label>Năm xây<input name="year_built" type="number" step="1" required></label><label>Năm cải tạo<input name="year_renovated" type="number" step="1" required><small>0 nếu chưa cải tạo</small></label>
+<label>Tình trạng (1–5)<input name="condition" type="number" step="1" required></label><label>Cảnh quan (0–4)<input name="view" type="number" step="1" required></label>
+<label>Ven nước<select name="waterfront"><option value="0">Không</option><option value="1">Có</option></select></label></div></details>
+<button type="submit" id="estimate">Dự đoán và xem căn cứ</button><p id="form-error" class="error" role="alert" hidden></p></form></div>
+<aside class="result" aria-live="polite"><p class="eyebrow">GIÁ ƯỚC TÍNH QUY ĐỔI</p><h2 id="price">—</h2><p id="usd" class="muted">Điền thông tin hoặc chọn một căn nhà mẫu</p><div class="result-line"><span>Giá trên m² diện tích ở</span><strong id="per-m2">—</strong></div><div class="result-line"><span>Khoảng dự đoán 90% danh nghĩa</span><strong id="interval">—</strong></div><p id="actual" hidden></p><p id="rate-note" class="small muted"></p><h3>Yếu tố mô hình sử dụng</h3><p class="small muted">Đóng góp theo mô hình so với mức nền. Thanh dài hơn thể hiện mức đóng góp lớn hơn, không phải tác động nhân quả.</p><div id="effects"><p class="muted">Kết quả giải thích sẽ hiển thị tại đây.</p></div><div id="warnings" class="small muted"></div></aside></section>
+<section class="context"><div><h2>Trường học và cửa hàng gần nhất</h2><p id="poi-note" class="muted">Đối chiếu vị trí tiện ích cần nguồn dữ liệu có thời điểm phù hợp với giao dịch.</p><div id="amenities" class="amenities"></div><p id="poi-source" class="small muted">Đang kiểm tra nguồn vị trí tiện ích</p></div>
+<div><h2>Giao dịch để đối chiếu</h2><p class="muted">Các căn gần và có kết cấu tương đồng, đã bán trước ngày định giá. Bảng này giúp kiểm tra mặt bằng giá.</p><div class="table-wrap"><table><thead><tr><th>Ngày bán</th><th>Diện tích ở</th><th>Ngủ / tắm</th><th>Cách</th><th>Giá VND/m²</th></tr></thead><tbody id="comparables"></tbody></table></div></div></section>
+<section id="evidence" class="evidence"><p class="eyebrow">BẰNG CHỨNG TỪ DỮ LIỆU</p><h2>Những yếu tố liên quan đến giá</h2><p class="muted">Biểu đồ khám phá chỉ sử dụng tập train. Điểm kiểm thử đến từ các giao dịch ở giai đoạn sau, không dùng để chọn mô hình.</p><div class="chart-grid">
+<figure><img src="/evidence/area_price.png" alt="Quan hệ diện tích ở và giá giao dịch" loading="lazy"><figcaption>Diện tích ở và giá bán</figcaption></figure>
+<figure><img src="/evidence/bedrooms_bathrooms.png" alt="Giá trung vị theo số phòng ngủ và phòng tắm" loading="lazy"><figcaption>Phòng ngủ và phòng tắm</figcaption></figure>
+<figure><img src="/evidence/quality_environment.png" alt="Chất lượng, cảnh quan và giá bán" loading="lazy"><figcaption>Chất lượng và môi trường</figcaption></figure>
+<figure><img src="/evidence/amenities.png" alt="Giá bán theo khoảng cách đến tiện ích có trong bản đồ lịch sử" loading="lazy"><figcaption>Khoảng cách tiện ích trên bản đồ</figcaption></figure>
+<figure><img src="/evidence/model_comparison.png" alt="So sánh mô hình trên tập validation" loading="lazy"><figcaption>So sánh trên cùng tập validation</figcaption></figure>
+<figure><img src="/evidence/importance.png" alt="Mức đóng góp trung bình của đặc trưng trên validation" loading="lazy"><figcaption>Đặc trưng mô hình sử dụng</figcaption></figure></div></section>
+<section id="sources" class="sources"><h2>Nguồn và giới hạn sử dụng</h2><p id="scope-note"></p><p id="split-note"></p><p><a href="https://www.kaggle.com/datasets/harlfoxem/housesalesprediction" target="_blank" rel="noopener">Dataset King County</a> · <a href="https://geodacenter.github.io/data-and-lab/KingCounty-HouseSales2015/" target="_blank" rel="noopener">Mô tả biến GeoDa</a> · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · <a href="https://www.vietcombank.com.vn/vi-VN/KHCN/Cong-cu-tien-ich/Ty-gia" target="_blank" rel="noopener">Tỷ giá Vietcombank</a></p><p class="small"><a href="/legacy">Mở công cụ nhập dữ liệu cũ</a></p></section>
+</main><footer>Nguyễn Duy Trường · Nhóm 8 · Phân tích dữ liệu và dự đoán giá nhà</footer></body></html>

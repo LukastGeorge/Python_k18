@@ -1,0 +1,196 @@
+{
+  "_id": "69d09b37304840cc8a2ae6ef",
+  "id": "tinixai/vietnam-real-estates",
+  "author": "tinixai",
+  "sha": "ca3fedcbb089bf65f7e4cfb03316cce4bd0d779f",
+  "lastModified": "2026-04-14T10:37:15.000Z",
+  "private": false,
+  "gated": false,
+  "disabled": false,
+  "tags": [
+    "task_categories:tabular-regression",
+    "language:vi",
+    "license:cc-by-nc-4.0",
+    "size_categories:1M<n<10M",
+    "format:parquet",
+    "modality:tabular",
+    "modality:text",
+    "modality:geospatial",
+    "library:datasets",
+    "library:dask",
+    "library:polars",
+    "library:mlcroissant",
+    "region:us",
+    "real-estate",
+    "vietnam",
+    "property",
+    "geospatial",
+    "price-prediction",
+    "tabular",
+    "vietnamese",
+    "Tiếng Việt"
+  ],
+  "description": "\n\t\n\t\t\n\t\n\t\n\t\t🏠 Tinix Vietnam Real Estate Listings (2025-2026)\n\t\n\nTinix Vietnam Real Estate Listings 2025-2026 là bộ dữ liệu bất động sản Việt Nam quy mô lớn được thu thập và xử lý bởi TiniX AI, bao gồm đúng 3.500.744 tin đăng bán/cho thuê bất động sản từ tháng 6/2025 đến tháng 3/2026 sau khi đã qua bước lọc loại hình nghiêm ngặt (loại bỏ Nhà mặt phố, Nhà trong ngõ). Đây là tài nguyên phục vụ nghiên cứu về thị trường bất động sản, xây dựng mô hình định giá nhà, phân tích xu hướng thị trường tại… See the full description on the dataset page: https://huggingface.co/datasets/tinixai/vietnam-real-estates.",
+  "downloads": 564,
+  "likes": 37,
+  "cardData": {
+    "language": [
+      "vi"
+    ],
+    "license": "cc-by-nc-4.0",
+    "task_categories": [
+      "tabular-regression"
+    ],
+    "tags": [
+      "real-estate",
+      "vietnam",
+      "property",
+      "geospatial",
+      "price-prediction",
+      "tabular",
+      "vietnamese",
+      "Tiếng Việt"
+    ],
+    "dataset_info": {
+      "features": [
+        {
+          "name": "name",
+          "dtype": "string"
+        },
+        {
+          "name": "description",
+          "dtype": "string"
+        },
+        {
+          "name": "property_type_name",
+          "dtype": "string"
+        },
+        {
+          "name": "province_name",
+          "dtype": "string"
+        },
+        {
+          "name": "district_name",
+          "dtype": "string"
+        },
+        {
+          "name": "ward_name",
+          "dtype": "string"
+        },
+        {
+          "name": "street_name",
+          "dtype": "string"
+        },
+        {
+          "name": "project_name",
+          "dtype": "string"
+        },
+        {
+          "name": "price",
+          "dtype": "float64"
+        },
+        {
+          "name": "area",
+          "dtype": "float64"
+        },
+        {
+          "name": "floor_count",
+          "dtype": "float64"
+        },
+        {
+          "name": "frontage_width",
+          "dtype": "float64"
+        },
+        {
+          "name": "house_depth",
+          "dtype": "float64"
+        },
+        {
+          "name": "road_width",
+          "dtype": "float64"
+        },
+        {
+          "name": "bedroom_count",
+          "dtype": "float64"
+        },
+        {
+          "name": "bathroom_count",
+          "dtype": "float64"
+        },
+        {
+          "name": "house_direction",
+          "dtype": "string"
+        },
+        {
+          "name": "balcony_direction",
+          "dtype": "string"
+        },
+        {
+          "name": "published_at",
+          "dtype": "string"
+        }
+      ],
+      "splits": [
+        {
+          "name": "train",
+          "num_examples": 3500744
+        }
+      ]
+    }
+  },
+  "siblings": [
+    {
+      "rfilename": ".gitattributes"
+    },
+    {
+      "rfilename": "README.md"
+    },
+    {
+      "rfilename": "images/geo_provinces.png"
+    },
+    {
+      "rfilename": "images/price_distribution.png"
+    },
+    {
+      "rfilename": "images/property_types.png"
+    },
+    {
+      "rfilename": "images/temporal_distribution.png"
+    },
+    {
+      "rfilename": "images/vietnam_bubble_map.png"
+    },
+    {
+      "rfilename": "shard_0000.parquet"
+    },
+    {
+      "rfilename": "shard_0001.parquet"
+    },
+    {
+      "rfilename": "shard_0002.parquet"
+    },
+    {
+      "rfilename": "shard_0003.parquet"
+    },
+    {
+      "rfilename": "shard_0004.parquet"
+    },
+    {
+      "rfilename": "shard_0005.parquet"
+    },
+    {
+      "rfilename": "shard_0006.parquet"
+    },
+    {
+      "rfilename": "shard_0007.parquet"
+    },
+    {
+      "rfilename": "shard_0008.parquet"
+    },
+    {
+      "rfilename": "shard_0009.parquet"
+    }
+  ],
+  "createdAt": "2026-04-04T05:01:43.000Z",
+  "usedStorage": 11661381269
+}

@@ -1,0 +1,52 @@
+@startuml
+!include theme.iuml
+title 05. Hoạt động — Pipeline một lần hoặc định kỳ
+
+start
+:Chạy backend.run_hourly\nChọn chế độ một lần hoặc chu kỳ N phút;
+repeat
+  partition "Một lần xử lý trong safe_run()" {
+    if (Có tham số CSV?) then (Có)
+      :read_input_csv()\nDữ liệu thật, source từ tham số;
+    else (Không)
+      :scrape_hourly_news()\nHai tin mẫu, is_demo=true, source=demo;
+    endif
+    :clean_data() + validate_features()\nChuẩn hóa và kiểm tra đầu vào;
+    if (Không có dòng dữ liệu?) then (Có)
+      :Thông báo không có dữ liệu;
+    else (Không)
+      :Nạp lại RealEstateAI ở lần chạy này;
+      if (Có mô hình VND hợp lệ?) then (Có)
+        :model.predict(FEATURES)\nmethod=trained_model;
+      else (Chưa có file)
+        if (is_demo=true?) then (Có)
+          :Giá = diện tích × 40 triệu\n+ phòng × 50 triệu VND\nmethod=demo_formula;
+        else (Không)
+          :predicted_price=NaN\nmethod=unavailable;
+        endif
+      endif
+      :predict_price() kiểm tra giá trả về\nHữu hạn và > 0, hoặc NaN khi unavailable;
+      :Gán updated_at\nLấy Engine theo cấu hình;
+      :save_records(): tạo bảng nếu cần\nUPSERT (source, id), đổi NaN thành NULL;
+      :In số tin và phương pháp dự đoán;
+    endif
+  }
+  if (Chế độ một lần?) then (Có)
+    :Thoát với mã 0 khi thành công\nhoặc mã 1 nếu safe_run() báo lỗi;
+    stop
+  else (Không)
+    :Chờ đến chu kỳ N phút tiếp theo;
+  endif
+repeat while (Chưa nhận Ctrl+C?) is (Tiếp tục)
+->Dừng;
+:Dừng lịch chạy;
+stop
+
+legend bottom
+  Luồng chính: chạy ngay lần đầu, sau đó lặp; N mặc định 60 phút.
+  Ngoại lệ ở đọc / làm sạch / mô hình / SQL: safe_run() báo lỗi,
+  bỏ qua các bước còn lại của lần xử lý; lần định kỳ sau vẫn thử lại.
+  File mô hình hỏng gây lỗi, không chuyển sang công thức demo.
+  Cần giữ terminal mở; scrape_hourly_news() chưa cào website thật.
+endlegend
+@enduml

@@ -1,0 +1,437 @@
+{
+  "raw_column_count": 12,
+  "raw_predictor_count": 11,
+  "screened_raw_predictor_count": 10,
+  "candidate_input_count": 12,
+  "encoded_column_count": 166,
+  "numeric_count": 6,
+  "categorical_count": 6,
+  "method": "Ordinary least squares of log(VND); log(area), train median imputation, missing indicators, standardized numeric inputs, grouped one-hot categories.",
+  "importance_method": "Refit OLS for each candidate input group, omitting that group; rank increase in log RMSE on the same validation set.",
+  "selection_rule": "Smallest prefix of importance ranking within 1% of the minimum validation log RMSE across prefixes.",
+  "full_validation": {
+    "rmse_log": 0.2451902863587861,
+    "rmse_vnd": 1460287622.9776614,
+    "r2_vnd": 0.5019053092190161,
+    "median_ape": 0.13778371116613475
+  },
+  "importance": [
+    {
+      "feature": "area",
+      "label": "Diện tích",
+      "delta_rmse_log": 0.07175180701247402,
+      "delta_rmse_vnd": 321215444.76517177,
+      "without": {
+        "rmse_log": 0.3169420933712601,
+        "rmse_vnd": 1781503067.7428331,
+        "r2_vnd": 0.2586756710040792,
+        "median_ape": 0.18778357871864917
+      }
+    },
+    {
+      "feature": "district_name",
+      "label": "Quận/huyện",
+      "delta_rmse_log": 0.0390735891125793,
+      "delta_rmse_vnd": 134482588.52705216,
+      "without": {
+        "rmse_log": 0.2842638754713654,
+        "rmse_vnd": 1594770211.5047135,
+        "r2_vnd": 0.40593860058609077,
+        "median_ape": 0.1592680450575903
+      }
+    },
+    {
+      "feature": "floor_count",
+      "label": "Số tầng",
+      "delta_rmse_log": 0.00968194713322934,
+      "delta_rmse_vnd": 52495543.094489336,
+      "without": {
+        "rmse_log": 0.25487223349201543,
+        "rmse_vnd": 1512783166.0721507,
+        "r2_vnd": 0.46544983205424806,
+        "median_ape": 0.14292254463138682
+      }
+    },
+    {
+      "feature": "ward_name",
+      "label": "Phường/xã",
+      "delta_rmse_log": 0.004651458014795856,
+      "delta_rmse_vnd": 17224978.075467348,
+      "without": {
+        "rmse_log": 0.24984174437358195,
+        "rmse_vnd": 1477512601.0531287,
+        "r2_vnd": 0.4900853482764209,
+        "median_ape": 0.14496981797336111
+      }
+    },
+    {
+      "feature": "legal_status",
+      "label": "Pháp lý",
+      "delta_rmse_log": 0.002923821029627044,
+      "delta_rmse_vnd": 4358796.449834347,
+      "without": {
+        "rmse_log": 0.24811410738841314,
+        "rmse_vnd": 1464646419.4274957,
+        "r2_vnd": 0.4989273566951523,
+        "median_ape": 0.13805907686059343
+      }
+    },
+    {
+      "feature": "road_width",
+      "label": "Đường trước nhà",
+      "delta_rmse_log": 0.0017601807128718172,
+      "delta_rmse_vnd": -4853582.351057768,
+      "without": {
+        "rmse_log": 0.2469504670716579,
+        "rmse_vnd": 1455434040.6266036,
+        "r2_vnd": 0.505210857999053,
+        "median_ape": 0.14256122572366636
+      }
+    },
+    {
+      "feature": "bathroom_count",
+      "label": "Phòng tắm",
+      "delta_rmse_log": 0.0008589332363788948,
+      "delta_rmse_vnd": 5908842.508196831,
+      "without": {
+        "rmse_log": 0.246049219595165,
+        "rmse_vnd": 1466196465.4858582,
+        "r2_vnd": 0.4978662177725063,
+        "median_ape": 0.1390058278766643
+      }
+    },
+    {
+      "feature": "house_direction",
+      "label": "Hướng nhà",
+      "delta_rmse_log": 0.000148149165057343,
+      "delta_rmse_vnd": 962821.1188242435,
+      "without": {
+        "rmse_log": 0.24533843552384343,
+        "rmse_vnd": 1461250444.0964856,
+        "r2_vnd": 0.5012482685361397,
+        "median_ape": 0.1375965372005823
+      }
+    },
+    {
+      "feature": "bedroom_count",
+      "label": "Phòng ngủ",
+      "delta_rmse_log": 0.00013007255300870324,
+      "delta_rmse_vnd": 2019865.8591778278,
+      "without": {
+        "rmse_log": 0.2453203589117948,
+        "rmse_vnd": 1462307488.8368392,
+        "r2_vnd": 0.5005264298101297,
+        "median_ape": 0.13684303817468976
+      }
+    },
+    {
+      "feature": "frontage_width",
+      "label": "Mặt tiền",
+      "delta_rmse_log": 3.1853986183411065e-05,
+      "delta_rmse_vnd": -318724.1283419132,
+      "without": {
+        "rmse_log": 0.2452221403449695,
+        "rmse_vnd": 1459968898.8493195,
+        "r2_vnd": 0.5021227149802472,
+        "median_ape": 0.13862444183284378
+      }
+    },
+    {
+      "feature": "furniture_state",
+      "label": "Nội thất",
+      "delta_rmse_log": -8.823699750581948e-07,
+      "delta_rmse_vnd": 212590.4978339672,
+      "without": {
+        "rmse_log": 0.24518940398881103,
+        "rmse_vnd": 1460500213.4754953,
+        "r2_vnd": 0.5017602721668231,
+        "median_ape": 0.1377441808874345
+      }
+    },
+    {
+      "feature": "province_name",
+      "label": "Thành phố",
+      "delta_rmse_log": -2.5079197845195855e-05,
+      "delta_rmse_vnd": -20496.591628551483,
+      "without": {
+        "rmse_log": 0.2451652071609409,
+        "rmse_vnd": 1460267126.3860328,
+        "r2_vnd": 0.5019192916313302,
+        "median_ape": 0.13775932142357766
+      }
+    }
+  ],
+  "numeric_coefficients": [
+    {
+      "feature": "area",
+      "label": "Diện tích (log)",
+      "standardized_log_coefficient": 0.24866183985754226
+    },
+    {
+      "feature": "bedroom_count",
+      "label": "Phòng ngủ",
+      "standardized_log_coefficient": 0.008712843533956006
+    },
+    {
+      "feature": "bathroom_count",
+      "label": "Phòng tắm",
+      "standardized_log_coefficient": 0.03189848155699615
+    },
+    {
+      "feature": "floor_count",
+      "label": "Số tầng",
+      "standardized_log_coefficient": 0.1020373215192
+    },
+    {
+      "feature": "frontage_width",
+      "label": "Mặt tiền",
+      "standardized_log_coefficient": -0.0012133061565820123
+    },
+    {
+      "feature": "road_width",
+      "label": "Đường trước nhà",
+      "standardized_log_coefficient": 0.05046230785033687
+    }
+  ],
+  "subsets": [
+    {
+      "k": 1,
+      "features": [
+        "area"
+      ],
+      "validation": {
+        "rmse_log": 0.36149637522243805,
+        "rmse_vnd": 1931851472.843189,
+        "r2_vnd": 0.1282688386108758,
+        "median_ape": 0.22102671672751661
+      }
+    },
+    {
+      "k": 2,
+      "features": [
+        "area",
+        "district_name"
+      ],
+      "validation": {
+        "rmse_log": 0.28036026774553136,
+        "rmse_vnd": 1612468030.1021595,
+        "r2_vnd": 0.3926803548280118,
+        "median_ape": 0.16489878811275496
+      }
+    },
+    {
+      "k": 3,
+      "features": [
+        "area",
+        "district_name",
+        "floor_count"
+      ],
+      "validation": {
+        "rmse_log": 0.256849459969171,
+        "rmse_vnd": 1497287820.411381,
+        "r2_vnd": 0.4763444777317387,
+        "median_ape": 0.15161152254154292
+      }
+    },
+    {
+      "k": 4,
+      "features": [
+        "area",
+        "district_name",
+        "floor_count",
+        "ward_name"
+      ],
+      "validation": {
+        "rmse_log": 0.25225890775802134,
+        "rmse_vnd": 1481219916.9472172,
+        "r2_vnd": 0.4875232227577345,
+        "median_ape": 0.14433467166165698
+      }
+    },
+    {
+      "k": 5,
+      "features": [
+        "area",
+        "district_name",
+        "floor_count",
+        "ward_name",
+        "legal_status"
+      ],
+      "validation": {
+        "rmse_log": 0.24935475895174267,
+        "rmse_vnd": 1475616042.1212938,
+        "r2_vnd": 0.49139357739710177,
+        "median_ape": 0.14395474959822607
+      }
+    },
+    {
+      "k": 6,
+      "features": [
+        "area",
+        "district_name",
+        "floor_count",
+        "ward_name",
+        "legal_status",
+        "road_width"
+      ],
+      "validation": {
+        "rmse_log": 0.24741566674956367,
+        "rmse_vnd": 1479939321.8116634,
+        "r2_vnd": 0.4884089677679029,
+        "median_ape": 0.1399497426379218
+      }
+    },
+    {
+      "k": 7,
+      "features": [
+        "area",
+        "district_name",
+        "floor_count",
+        "ward_name",
+        "legal_status",
+        "road_width",
+        "bathroom_count"
+      ],
+      "validation": {
+        "rmse_log": 0.2454919127368235,
+        "rmse_vnd": 1463330999.9585633,
+        "r2_vnd": 0.49982699324748536,
+        "median_ape": 0.13791487092551183
+      }
+    },
+    {
+      "k": 8,
+      "features": [
+        "area",
+        "district_name",
+        "floor_count",
+        "ward_name",
+        "legal_status",
+        "road_width",
+        "bathroom_count",
+        "house_direction"
+      ],
+      "validation": {
+        "rmse_log": 0.24532261420307055,
+        "rmse_vnd": 1462323520.4504986,
+        "r2_vnd": 0.5005154780626145,
+        "median_ape": 0.13641820457922402
+      }
+    },
+    {
+      "k": 9,
+      "features": [
+        "area",
+        "district_name",
+        "floor_count",
+        "ward_name",
+        "legal_status",
+        "road_width",
+        "bathroom_count",
+        "house_direction",
+        "bedroom_count"
+      ],
+      "validation": {
+        "rmse_log": 0.24519989247985896,
+        "rmse_vnd": 1460184391.77238,
+        "r2_vnd": 0.5019757297265953,
+        "median_ape": 0.1383094873377037
+      }
+    },
+    {
+      "k": 10,
+      "features": [
+        "area",
+        "district_name",
+        "floor_count",
+        "ward_name",
+        "legal_status",
+        "road_width",
+        "bathroom_count",
+        "house_direction",
+        "bedroom_count",
+        "frontage_width"
+      ],
+      "validation": {
+        "rmse_log": 0.24515911725401182,
+        "rmse_vnd": 1460462031.5198798,
+        "r2_vnd": 0.5017863228559346,
+        "median_ape": 0.13751042389514193
+      }
+    },
+    {
+      "k": 11,
+      "features": [
+        "area",
+        "district_name",
+        "floor_count",
+        "ward_name",
+        "legal_status",
+        "road_width",
+        "bathroom_count",
+        "house_direction",
+        "bedroom_count",
+        "frontage_width",
+        "furniture_state"
+      ],
+      "validation": {
+        "rmse_log": 0.2451652071609409,
+        "rmse_vnd": 1460267126.3860328,
+        "r2_vnd": 0.5019192916313302,
+        "median_ape": 0.13775932142357766
+      }
+    },
+    {
+      "k": 12,
+      "features": [
+        "area",
+        "district_name",
+        "floor_count",
+        "ward_name",
+        "legal_status",
+        "road_width",
+        "bathroom_count",
+        "house_direction",
+        "bedroom_count",
+        "frontage_width",
+        "furniture_state",
+        "province_name"
+      ],
+      "validation": {
+        "rmse_log": 0.2451902863587861,
+        "rmse_vnd": 1460287622.9776614,
+        "r2_vnd": 0.5019053092190161,
+        "median_ape": 0.13778371116613475
+      }
+    }
+  ],
+  "selected": {
+    "k": 6,
+    "features": [
+      "area",
+      "district_name",
+      "floor_count",
+      "ward_name",
+      "legal_status",
+      "road_width"
+    ],
+    "validation": {
+      "rmse_log": 0.24741566674956367,
+      "rmse_vnd": 1479939321.8116634,
+      "r2_vnd": 0.4884089677679029,
+      "median_ape": 0.1399497426379218
+    }
+  },
+  "excluded_raw_columns": {
+    "Price": "Nhãn y theo tỷ VND; nhân 1e9. Không được đưa vào X.",
+    "Balcony direction": "Thiếu trên 80% ở tập train nên loại theo ngưỡng sàng lọc đã định."
+  },
+  "address_transformation": "Address không được đưa nguyên văn vào mô hình; tách thành thành phố, quận/huyện, phường/xã. Không suy đoán loại nhà hoặc ngày đăng.",
+  "caveats": [
+    "Độ quan trọng thuộc mô hình tuyến tính và cách chia dữ liệu này, không phải tác động nhân quả.",
+    "Các biến địa bàn lồng nhau và số phòng/diện tích tương quan nên có thể chia sẻ thông tin.",
+    "Biểu đồ hệ số chỉ so sánh sáu biến số đã chuẩn hóa; nhóm danh mục xếp hạng bằng bỏ biến rồi fit lại.",
+    "Danh sách tuyến tính là thí nghiệm chọn biến riêng; mô hình phục vụ XGBoost dùng 12 đầu vào sau sàng lọc để học tương tác phi tuyến.",
+    "Không có ngày đăng; chia theo nhóm địa chỉ và diện tích, không được diễn giải là kiểm thử ở thời kỳ tương lai."
+  ]
+}

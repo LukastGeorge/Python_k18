@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#4338ca">
+  <title>Nhà & Giá · Tiểu luận cuối kỳ</title>
+  <link rel="icon" href="{{ url_for('static', filename='house.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-icon"><img src="{{ url_for('static', filename='house.svg') }}" alt="" width="24" height="24"></span><span>Nhà <span class="muted">&</span> Giá</span></div>
+    <span class="topbar-label">Tiểu luận cuối kỳ <span class="divider">/</span> Nhóm 8</span>
+    <span id="connection" class="badge neutral" role="status">Đang kết nối…</span>
+  </header>
+  <main>
+    <section class="page-heading">
+      <div><p class="eyebrow">KHÔNG GIAN LÀM VIỆC</p><h1>Dự đoán giá nhà</h1><p class="subtitle">Nhập thông tin căn nhà, xem kết quả và quản lý dữ liệu ở một nơi.</p></div>
+      <button id="seed-demo" class="button secondary" type="button">+ Nạp 2 tin mẫu</button>
+    </section>
+    <div id="connection-error" class="notice error" role="alert" hidden><span id="connection-error-text"></span><button id="retry" type="button" class="text-button">Thử lại</button></div>
+    <div id="feedback" class="notice" role="status" hidden></div>
+    <section class="stats" aria-label="Thống kê database">
+      <article class="stat-card"><span>Tổng căn nhà</span><strong id="count-total">—</strong><small>Đã lưu trong database</small></article>
+      <article class="stat-card"><span>Dữ liệu thật</span><strong id="count-real">—</strong><small>Tách riêng để huấn luyện</small></article>
+      <article class="stat-card"><span>Dữ liệu minh họa</span><strong id="count-demo">—</strong><small>Không dùng huấn luyện</small></article>
+    </section>
+    <div class="workspace">
+      <section class="card form-card">
+        <div class="card-heading"><div><h2>Thông tin căn nhà</h2><p>Các trường có dấu * là bắt buộc.</p></div><span class="step">01</span></div>
+        <form id="house-form">
+          <fieldset class="mode-switch"><legend class="sr-only">Loại dữ liệu</legend><label><input type="radio" name="mode" value="demo" checked><span>Minh họa</span></label><label><input type="radio" name="mode" value="real"><span>Dữ liệu thật</span></label></fieldset>
+          <p id="mode-note" class="field-hint mode-note"></p>
+          <div class="field"><label for="house-id">Mã căn nhà *</label><input id="house-id" name="id" required maxlength="160" autocomplete="off"><small>Cùng mã và cùng chế độ sẽ cập nhật bản ghi đã lưu.</small></div>
+          <div class="field"><label for="title">Tên căn nhà *</label><input id="title" name="title" required maxlength="1000" placeholder="Ví dụ: Nhà phố 2 phòng ngủ"></div>
+          <div class="field-grid">
+            <div class="field"><label for="area">Diện tích (m²) *</label><input id="area" name="area" type="number" min="10" max="1000" step="any" required placeholder="50"></div>
+            <div class="field"><label for="rooms">Phòng ngủ *</label><input id="rooms" name="rooms" type="number" min="0" max="30" step="1" required placeholder="2"></div>
+            <div class="field"><label for="latitude">Vĩ độ *</label><input id="latitude" name="latitude" type="number" min="-90" max="90" step="any" required placeholder="10.762622"></div>
+            <div class="field"><label for="longitude">Kinh độ *</label><input id="longitude" name="longitude" type="number" min="-180" max="180" step="any" required placeholder="106.660172"></div>
+          </div>
+          <div id="actual-price-field" class="field" hidden><label for="actual-price">Giá giao dịch đã bán (VND)</label><input id="actual-price" name="actual_price" type="number" min="100000000" max="500000000000" step="any" placeholder="Để trống nếu chưa biết"><small>Chỉ nhập giá bán thực tế; không nhập giá rao.</small></div>
+          <div class="form-actions"><button id="submit-house" class="button primary" type="submit">Dự đoán & lưu <span aria-hidden="true">→</span></button><button id="new-house" class="button secondary" type="button">Nhập mới</button></div>
+          <p id="form-error" class="inline-error" role="alert" hidden></p>
+        </form>
+      </section>
+      <aside class="result-column">
+        <section class="card result-card" aria-live="polite">
+          <div class="card-heading"><div><h2>Kết quả dự đoán</h2><p id="result-title">Kết quả sẽ xuất hiện sau khi lưu.</p></div><span class="step">02</span></div>
+          <div class="price-block"><span class="eyebrow">GIÁ TRỊ ƯỚC TÍNH</span><strong id="prediction">—</strong><span id="prediction-unit">Đơn vị: Việt Nam đồng</span></div>
+          <span id="result-method" class="badge neutral">Chưa có kết quả</span>
+          <p id="result-note" class="result-note">Chọn Minh họa để thử quy trình nhập liệu, tính giá và lưu database.</p>
+          <div id="result-details" class="result-details" hidden></div>
+        </section>
+        <section class="card system-card"><h3>Trạng thái hệ thống</h3><dl><div><dt>Database</dt><dd id="database-name">Đang kiểm tra…</dd></div><div><dt>Mô hình VND</dt><dd id="model-name">Đang kiểm tra…</dd></div></dl><p id="model-note">Giao diện gọi API để đọc và lưu dữ liệu.</p></section>
+      </aside>
+    </div>
+    <section class="card records-card">
+      <div class="records-heading"><div><h2>Dữ liệu đã lưu</h2><p id="records-summary">Đang tải danh sách…</p></div><button id="refresh" class="button secondary small" type="button">Làm mới</button></div>
+      <div class="toolbar"><label class="search"><span class="sr-only">Tìm mã hoặc tên căn nhà</span><input id="search" type="search" maxlength="200" placeholder="Tìm theo mã hoặc tên căn nhà…"></label><label><span class="sr-only">Lọc loại dữ liệu</span><select id="filter-mode"><option value="all">Tất cả dữ liệu</option><option value="real">Dữ liệu thật</option><option value="demo">Minh họa</option></select></label></div>
+      <div class="table-wrapper"><table><thead><tr><th scope="col">Căn nhà</th><th scope="col">Diện tích</th><th scope="col">Phòng ngủ</th><th scope="col">Giá dự đoán</th><th scope="col">Loại dữ liệu</th><th scope="col">Cập nhật</th></tr></thead><tbody id="records-body"></tbody></table></div>
+      <div id="empty-state" class="empty-state" hidden><strong>Chưa có căn nhà nào</strong><p>Nhập căn nhà đầu tiên hoặc chọn “Nạp 2 tin mẫu” để bắt đầu.</p></div>
+      <div class="pagination"><span id="page-info">Trang 1 / 1</span><div><button id="previous-page" class="button secondary small" type="button" disabled>← Trước</button><button id="next-page" class="button secondary small" type="button" disabled>Sau →</button></div></div>
+    </section>
+    <footer>Nhà & Giá · Dự án TieuLuan_CuoiKy <span>Giá minh họa không phải giá thị trường được xác minh.</span></footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,50 @@
+[
+  {
+    "feature": "area",
+    "mean_abs_log_contribution": 0.15863275481329764
+  },
+  {
+    "feature": "bedroom_count",
+    "mean_abs_log_contribution": 0.015748460450971228
+  },
+  {
+    "feature": "bathroom_count",
+    "mean_abs_log_contribution": 0.032879962335785724
+  },
+  {
+    "feature": "floor_count",
+    "mean_abs_log_contribution": 0.07034664798042892
+  },
+  {
+    "feature": "frontage_width",
+    "mean_abs_log_contribution": 0.0076204199081682114
+  },
+  {
+    "feature": "road_width",
+    "mean_abs_log_contribution": 0.034775103904840614
+  },
+  {
+    "feature": "province_name",
+    "mean_abs_log_contribution": 0.011385451862030702
+  },
+  {
+    "feature": "district_name",
+    "mean_abs_log_contribution": 0.09810913902137865
+  },
+  {
+    "feature": "ward_name",
+    "mean_abs_log_contribution": 0.037234009239603266
+  },
+  {
+    "feature": "house_direction",
+    "mean_abs_log_contribution": 0.0029394116410485557
+  },
+  {
+    "feature": "legal_status",
+    "mean_abs_log_contribution": 0.010376393842179824
+  },
+  {
+    "feature": "furniture_state",
+    "mean_abs_log_contribution": 0.002888665563961581
+  }
+]

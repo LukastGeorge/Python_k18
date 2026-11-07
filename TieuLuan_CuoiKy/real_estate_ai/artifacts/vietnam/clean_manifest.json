@@ -1,0 +1,85 @@
+{
+  "source": {
+    "source_url": "https://www.kaggle.com/datasets/nguyentiennhan/vietnam-housing-dataset-2024",
+    "download_url": "https://www.kaggle.com/api/v1/datasets/download/nguyentiennhan/vietnam-housing-dataset-2024?datasetVersionNumber=8",
+    "title": "House Price Prediction Dataset Vietnam - 2024",
+    "creator": "Nguyen Tien Nhan",
+    "license": "CC0: Public Domain",
+    "revision": "kaggle-version-8",
+    "version": 8,
+    "last_updated": "2024-09-22T02:25:54.613Z",
+    "downloaded_at": "2026-11-07",
+    "original_price_unit": "billion VND",
+    "collection_site": "batdongsan.vn",
+    "columns": [
+      "Address",
+      "Area",
+      "Frontage",
+      "Access Road",
+      "House direction",
+      "Balcony direction",
+      "Floors",
+      "Bedrooms",
+      "Bathrooms",
+      "Legal status",
+      "Furniture state",
+      "Price"
+    ],
+    "files": [
+      {
+        "path": "vietnam_housing_dataset.csv",
+        "bytes": 3532685,
+        "sha256": "7ee188d69aca06349a81bac0c2d2d1503058d5aec7124edfd075154fa87d97c8"
+      }
+    ],
+    "archive_sha256": "2eba4312ea1f89abbe9a58f5601427f71989224d6e906c722821832dea0ea254"
+  },
+  "audit": {
+    "raw_rows": 30229,
+    "raw_columns": 12,
+    "files": 1,
+    "in_scope_rows": 22245,
+    "invalid_or_outside_price_scope": 62,
+    "optional_values_set_missing": {
+      "bedroom_count": 0,
+      "bathroom_count": 0,
+      "floor_count": 0,
+      "frontage_width": 20,
+      "road_width": 4
+    },
+    "exact_duplicate_rows_removed": 0,
+    "accepted_rows": 22183,
+    "property_proxy_groups": 17035,
+    "rows_sharing_proxy": 5148,
+    "missing_fraction": {
+      "area": 0.0,
+      "bedroom_count": 0.16215119686246224,
+      "bathroom_count": 0.23626200243429654,
+      "floor_count": 0.09408105305864851,
+      "frontage_width": 0.40846594238831535,
+      "road_width": 0.47797863228598475
+    },
+    "observed_price_billion_range": [
+      1.0,
+      11.5
+    ],
+    "deduplication": "Bỏ dòng trùng toàn bộ 12 cột. Khóa nhóm là địa chỉ chuẩn hóa và diện tích làm tròn 0,1 m², không dùng giá. Các tin cùng khóa được giữ cùng một tập; có thể gộp nhiều căn cùng địa chỉ/diện tích và bỏ sót tin đăng lại đổi cách ghi.",
+    "training_missing_fraction": {
+      "area": 0.0,
+      "bedroom_count": 0.16487535453052696,
+      "bathroom_count": 0.23854306612927303,
+      "floor_count": 0.09344678310195552,
+      "frontage_width": 0.4121510673234811,
+      "road_width": 0.4842513808031049,
+      "balcony_direction": 0.8722943722943723,
+      "province_name": 0.0,
+      "district_name": 0.0,
+      "ward_name": 0.0036572622779519333,
+      "house_direction": 0.7826541274817137,
+      "legal_status": 0.14039408866995073,
+      "furniture_state": 0.44043887147335425
+    }
+  },
+  "sha256": "3f4d1f701508fb40aece681edb6a038c2fcf2c643f6038b1b537e8b15034e6f5",
+  "description": "Tập con TP.HCM và Hà Nội từ Kaggle 2024 phiên bản 8, giấy phép CC0; checksum dữ liệu gốc và dữ liệu sạch được ghi riêng."
+}

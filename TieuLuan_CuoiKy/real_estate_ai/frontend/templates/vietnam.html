@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nhà & Giá · TP.HCM và Hà Nội</title><link rel="icon" href="/static/house.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/static/kingcounty.css"><link rel="stylesheet" href="/static/vietnam.css"><script src="/static/vietnam.js" defer></script></head>
+<body><header><a class="brand" href="/">Nhà <span>&</span> Giá</a><nav aria-label="Điều hướng"><a href="#valuation">Dự đoán</a><a href="#evidence">Phân tích</a><a href="#sources">Nguồn dữ liệu</a></nav><span class="tag">TP.HCM · HÀ NỘI</span></header>
+<main><section class="hero"><p class="eyebrow">DỮ LIỆU NHÀ Ở VIỆT NAM</p><h1>Dự đoán giá nhà<br><span>Từ dữ liệu địa phương</span></h1><p>Vị trí, diện tích, kết cấu và pháp lý giúp mô hình ước tính mức giá rao bán. Xem khoảng dự đoán, yếu tố liên quan và các tin đăng để đối chiếu.</p><p class="scope">Nguồn Kaggle Vietnam Housing Dataset 2024 · Phiên bản 8 · Giá tham khảo bằng VND · Chưa xác minh giá chốt giao dịch. Dataset không có ngày đăng hoặc cột loại nhà.</p></section>
+<div id="load-error" class="notice error" role="alert" hidden></div>
+<section class="metrics" aria-label="Kết quả trên tập kiểm thử"><div><span>Tin trong phạm vi phân tích</span><strong id="metric-rows">—</strong></div><div><span>R² trên tập test theo nhóm</span><strong id="metric-r2">—</strong></div><div><span>Sai lệch không quá ±20%</span><strong id="metric-20">—</strong></div><div><span>Sai lệch tuyệt đối trung vị</span><strong id="metric-mape">—</strong></div></section>
+<section id="valuation" class="valuation"><div><h2>Thông tin căn nhà</h2><p class="muted">Chọn địa bàn theo dataset 2024. Các thông tin chưa biết có thể để trống.</p><label for="example">Thử bằng tin chưa dùng để huấn luyện</label><select id="example"><option value="">Tự nhập thông tin</option></select>
+<form id="vn-form"><fieldset><legend>Vị trí theo dữ liệu nguồn</legend><div class="fields">
+<label>Thành phố<select name="province_name" required></select></label><label>Quận/huyện theo nguồn<select name="district_name" required></select></label>
+<label>Phường/xã theo nguồn<select name="ward_name"></select></label></div></fieldset>
+<fieldset><legend>Diện tích và kết cấu</legend><div class="fields">
+<label>Diện tích khai báo (m²)<input name="area" type="number" min="15" max="1000" step="any" required><small>Theo tin đăng, có thể là diện tích đất hoặc sàn</small></label>
+<label>Số phòng ngủ<input name="bedroom_count" type="number" min="1" max="20" step="1" placeholder="Chưa biết"></label>
+<label>Số phòng tắm<input name="bathroom_count" type="number" min="1" max="20" step="1" placeholder="Chưa biết"></label>
+<label>Số tầng của nhà/tòa nhà<input name="floor_count" type="number" min="1" max="15" step="1" placeholder="Chưa biết"></label>
+<label>Mặt tiền (m)<input name="frontage_width" type="number" min="1" max="50" step="any" placeholder="Chưa biết"></label>
+<label>Đường trước nhà (m)<input name="road_width" type="number" min="1" max="60" step="any" placeholder="Chưa biết"></label></div></fieldset>
+<fieldset><legend>Hướng nhà pháp lý và nội thất</legend><div class="fields">
+<label>Hướng nhà<select name="house_direction"><option value="Không rõ">Chưa biết</option><option>Bắc</option><option>Đông - Bắc</option><option>Đông</option><option>Đông - Nam</option><option>Nam</option><option>Tây - Nam</option><option>Tây</option><option>Tây - Bắc</option></select></label>
+<label>Pháp lý theo nguồn<select name="legal_status"><option value="Không rõ">Chưa biết</option><option value="Have certificate">Có giấy chứng nhận</option><option value="Sale contract">Hợp đồng mua bán</option></select></label>
+<label>Nội thất theo nguồn<select name="furniture_state"><option value="Không rõ">Chưa biết</option><option value="Full">Đầy đủ</option><option value="Basic">Cơ bản</option></select></label></div></fieldset>
+<button id="predict-button" type="submit" disabled>Dự đoán và lưu kết quả</button><p id="form-message" class="small" role="status" aria-live="polite"></p></form></div>
+<aside class="result" aria-live="polite"><p class="eyebrow">GIÁ RAO BÁN THAM KHẢO</p><h2 id="result-price">Điền thông tin để bắt đầu</h2><p id="exact-price" class="small muted"></p>
+<div class="result-line"><span>Đơn giá / m² khai báo</span><strong id="result-unit">—</strong></div><div class="result-line"><span>Khoảng dự đoán 90% danh nghĩa</span><strong id="result-interval">—</strong></div>
+<p id="actual-price" class="small muted"></p><h3>Yếu tố mô hình sử dụng</h3><p class="small muted">Đóng góp trên thang log(VND) so với mức nền. Đây là giải thích dự đoán, chưa chứng minh tác động nhân quả.</p><div id="effects"></div><div id="warnings" class="small muted"></div></aside></section>
+<section class="context"><div><h2>Tiện ích xung quanh</h2><p class="muted">Dataset chưa cung cấp tọa độ hoặc khoảng cách trường học và cửa hàng đã xác minh. Mô hình hiện chưa sử dụng các yếu tố này.</p><p class="small muted">Thông tin “gần trường, gần chợ” trong lời quảng cáo chưa đủ để đo khoảng cách hoặc tính thêm tiền vào giá dự đoán.</p></div>
+<div><h2>Tin rao bán để đối chiếu</h2><p class="muted">Cùng quận/huyện, lấy từ train và validation của dataset 2024. Chưa phải các giao dịch đã bán. Nguồn không có ngày đăng hoặc cột loại nhà.</p><div class="table-wrap"><table><thead><tr><th>Quận/huyện</th><th>Phường/xã</th><th>Diện tích</th><th>Giá rao</th><th>Triệu/m²</th></tr></thead><tbody id="comparables"><tr><td colspan="5">Chưa có kết quả</td></tr></tbody></table></div></div></section>
+<section id="evidence" class="evidence"><p class="eyebrow">BẰNG CHỨNG TỪ DỮ LIỆU</p><h2>Những đặc điểm liên quan đến giá</h2><p class="muted">Biểu đồ mô tả dùng tập train. Mô hình được chọn bằng validation; calibration và test không chung nhóm địa chỉ–diện tích với dữ liệu fit.</p><div class="chart-grid">
+<figure><img src="/vietnam-evidence/area_price.png" alt="Diện tích và giá rao bán tại hai thành phố" loading="lazy"><figcaption>Diện tích và giá rao bán</figcaption></figure>
+<figure><img src="/vietnam-evidence/rooms.png" alt="Trung vị giá rao theo số phòng ngủ và phòng tắm" loading="lazy"><figcaption>Phòng ngủ và phòng tắm</figcaption></figure>
+<figure><img src="/vietnam-evidence/districts.png" alt="Đơn giá rao bán nhà theo quận huyện trên tập train" loading="lazy"><figcaption>Vị trí và đơn giá</figcaption></figure>
+<figure><img src="/vietnam-evidence/model_comparison.png" alt="Sai số các mô hình trên cùng validation" loading="lazy"><figcaption>So sánh mô hình</figcaption></figure>
+<figure><img src="/vietnam-evidence/importance.png" alt="Mức đóng góp trung bình của các đặc trưng" loading="lazy"><figcaption>Đặc trưng mô hình sử dụng</figcaption></figure>
+<figure><img src="/vietnam-evidence/test_errors.png" alt="Dự đoán và giá rao thực tế trên tập test" loading="lazy"><figcaption>Kiểm tra trên giai đoạn mới hơn</figcaption></figure></div></section>
+<section class="sources"><h2>Lịch sử dự đoán gần nhất</h2><div class="table-wrap"><table><thead><tr><th>Thời điểm</th><th>Thành phố</th><th>Quận/huyện</th><th>Giá tham khảo</th></tr></thead><tbody id="history"></tbody></table></div></section>
+<section id="sources" class="sources"><h2>Nguồn và phạm vi sử dụng</h2><p id="scope-note"></p><p id="split-note"></p><p id="coverage-note"></p><p><a href="https://www.kaggle.com/datasets/nguyentiennhan/vietnam-housing-dataset-2024" target="_blank" rel="noopener">Nguyen Tien Nhan · House Price Prediction Dataset Vietnam 2024</a> · CC0 Public Domain · Dữ liệu thu thập từ batdongsan.vn theo mô tả tác giả.</p><p class="small"><a href="/kingcounty">Xem thí nghiệm tham khảo King County</a> · <a href="/legacy">Công cụ nhập dữ liệu cũ</a></p></section>
+</main><footer>Nguyễn Duy Trường · Nhóm 8 · Phân tích dữ liệu và dự đoán giá rao bán</footer></body></html>

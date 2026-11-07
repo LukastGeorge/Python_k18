@@ -1,0 +1,668 @@
+[
+  {
+    "name": "Căn nhà test 1",
+    "input": {
+      "living_m2": 178.37383680000002,
+      "lot_m2": 13435.54474176,
+      "bedrooms": 3.0,
+      "bathrooms": 2.5,
+      "floors": 1.0,
+      "waterfront": 0.0,
+      "view": 0.0,
+      "condition": 3.0,
+      "grade": 8.0,
+      "latitude": 47.2683,
+      "longitude": -121.946,
+      "zipcode": "98022",
+      "year_built": 2014,
+      "year_renovated": 0,
+      "sale_date": "2015-03-03",
+      "id": "3221079050"
+    },
+    "actual_usd": 465000.0,
+    "actual_vnd": 11987700000.0,
+    "result": {
+      "predicted_vnd": 12500656744.375,
+      "predicted_usd": 484897.46875,
+      "price_per_m2_vnd": 70081223.6179639,
+      "interval_vnd": [
+        9259463619.888992,
+        16876397619.44661
+      ],
+      "exchange_rate": {
+        "usd_vnd": 25780.0,
+        "quote_kind": "Vietcombank USD sell",
+        "source_url": "https://portal.vietcombank.com.vn/Usercontrols/TVPortal.TyGia/pXML.aspx?b=1",
+        "source_page": "https://www.vietcombank.com.vn/vi-VN/KHCN/Cong-cu-tien-ich/Ty-gia",
+        "quoted_at": "11/7/2026 12:39:49 AM",
+        "retrieved_at": "2026-11-06T17:41:58.606994+00:00",
+        "sha256": "fa614c393979d637523813fffc2dcff9dd025cb681979f41ab363d3ef5e0c279",
+        "meaning": "Currency conversion of historical US house prices; not a Vietnamese market valuation."
+      },
+      "model_version": "20261106T180015Z",
+      "explanations": [
+        {
+          "feature": "latitude",
+          "label": "Vĩ độ",
+          "log_contribution": -0.26434385776519775,
+          "factor": 0.7677095113883154
+        },
+        {
+          "feature": "lot_m2",
+          "label": "Diện tích đất",
+          "log_contribution": 0.2639436721801758,
+          "factor": 1.3020548523241373
+        },
+        {
+          "feature": "house_age",
+          "label": "Tuổi nhà",
+          "log_contribution": 0.10167233645915985,
+          "factor": 1.107020681978252
+        },
+        {
+          "feature": "living_m2",
+          "label": "Diện tích ở",
+          "log_contribution": -0.032621610909700394,
+          "factor": 0.9679047348984268
+        },
+        {
+          "feature": "longitude",
+          "label": "Kinh độ",
+          "log_contribution": -0.027331732213497162,
+          "factor": 0.9730383997966147
+        },
+        {
+          "feature": "grade",
+          "label": "Chất lượng xây dựng",
+          "log_contribution": 0.019405335187911987,
+          "factor": 1.0195948425378274
+        },
+        {
+          "feature": "condition",
+          "label": "Tình trạng nhà",
+          "log_contribution": -0.012298325076699257,
+          "factor": 0.9877769902561644
+        },
+        {
+          "feature": "view",
+          "label": "Cảnh quan",
+          "log_contribution": -0.010168229229748249,
+          "factor": 0.9898832924371751
+        },
+        {
+          "feature": "zipcode",
+          "label": "Mã bưu chính",
+          "log_contribution": -0.009246447123587132,
+          "factor": 0.99079616981571
+        },
+        {
+          "feature": "bathrooms",
+          "label": "Phòng tắm",
+          "log_contribution": 0.008550074882805347,
+          "factor": 1.0085867311699104
+        },
+        {
+          "feature": "floors",
+          "label": "Số tầng",
+          "log_contribution": 0.00565381022170186,
+          "factor": 1.0056698231705476
+        },
+        {
+          "feature": "waterfront",
+          "label": "Ven nước",
+          "log_contribution": -0.002288878196850419,
+          "factor": 0.9977137392874345
+        },
+        {
+          "feature": "renovated",
+          "label": "Đã cải tạo",
+          "log_contribution": -0.0018897916888818145,
+          "factor": 0.9981119928431236
+        },
+        {
+          "feature": "month_index",
+          "label": "Thời điểm giao dịch",
+          "log_contribution": 0.0009400448179803789,
+          "factor": 1.0009404867985934
+        },
+        {
+          "feature": "bedrooms",
+          "label": "Phòng ngủ",
+          "log_contribution": -0.0002796730841509998,
+          "factor": 0.9997203660207203
+        },
+        {
+          "feature": "renovation_age",
+          "label": "Tuổi cải tạo",
+          "log_contribution": 0.0002100086712744087,
+          "factor": 1.000210030724639
+        }
+      ],
+      "base_price_usd": 465929.25,
+      "explanation_unit": "log1p(USD); đóng góp mô hình, không phải quan hệ nhân quả",
+      "amenities": [
+        {
+          "kind": "school",
+          "available": false
+        },
+        {
+          "kind": "convenience",
+          "available": false
+        },
+        {
+          "kind": "supermarket",
+          "available": false
+        }
+      ],
+      "amenities_used_by_model": false,
+      "comparables": [
+        {
+          "id": "2921079027",
+          "sale_date": "2014-09-24",
+          "living_m2": 201.5995968,
+          "bedrooms": 4,
+          "bathrooms": 2.5,
+          "distance_km": 1.7193496756911564,
+          "price_usd": 400000.0,
+          "price_vnd": 10312000000.0,
+          "price_per_m2_vnd": 51150895.952585556
+        },
+        {
+          "id": "2821079081",
+          "sale_date": "2014-10-10",
+          "living_m2": 231.3285696,
+          "bedrooms": 4,
+          "bathrooms": 2.0,
+          "distance_km": 1.3650303806837192,
+          "price_usd": 590000.0,
+          "price_vnd": 15210200000.0,
+          "price_per_m2_vnd": 65751498.080416955
+        },
+        {
+          "id": "3221079069",
+          "sale_date": "2014-08-15",
+          "living_m2": 257.34142080000004,
+          "bedrooms": 3,
+          "bathrooms": 2.5,
+          "distance_km": 1.3565338369541586,
+          "price_usd": 475000.0,
+          "price_vnd": 12245500000.0,
+          "price_per_m2_vnd": 47584644.407154836
+        },
+        {
+          "id": "3321079060",
+          "sale_date": "2014-10-20",
+          "living_m2": 242.4769344,
+          "bedrooms": 3,
+          "bathrooms": 1.75,
+          "distance_km": 1.9231829549295207,
+          "price_usd": 378000.0,
+          "price_vnd": 9744840000.0,
+          "price_per_m2_vnd": 40188729.80274696
+        },
+        {
+          "id": "0820079101",
+          "sale_date": "2014-12-22",
+          "living_m2": 189.52220160000002,
+          "bedrooms": 3,
+          "bathrooms": 2.25,
+          "distance_km": 3.9481468927111285,
+          "price_usd": 525000.0,
+          "price_vnd": 13534500000.0,
+          "price_per_m2_vnd": 71413796.83086163
+        }
+      ],
+      "warnings": [
+        "Ước tính nhà tại King County theo dữ liệu giao dịch 2014–2015, quy đổi sang VND. Không phải giá nhà Việt Nam hay định giá thị trường hiện tại. Quan hệ trong dữ liệu và đóng góp mô hình không chứng minh quan hệ nhân quả.",
+        "Khoảng dự đoán 90% là mức danh nghĩa. Độ phủ thực tế trên test: 90.8%.",
+        "Khoảng cách là đường chim bay tới đối tượng được ghi trên OSM ngày 01/05/2014. OSM có thể thiếu địa điểm."
+      ],
+      "market": "King County, Washington, USA",
+      "sale_date": "2015-03-03"
+    }
+  },
+  {
+    "name": "Căn nhà test 2",
+    "input": {
+      "living_m2": 145.85777280000002,
+      "lot_m2": 475.6635648,
+      "bedrooms": 3.0,
+      "bathrooms": 1.75,
+      "floors": 1.0,
+      "waterfront": 0.0,
+      "view": 2.0,
+      "condition": 3.0,
+      "grade": 7.0,
+      "latitude": 47.7166,
+      "longitude": -122.365,
+      "zipcode": "98177",
+      "year_built": 1947,
+      "year_renovated": 0,
+      "sale_date": "2015-03-01",
+      "id": "0930000425"
+    },
+    "actual_usd": 440000.0,
+    "actual_vnd": 11343200000.0,
+    "result": {
+      "predicted_vnd": 11889912431.875,
+      "predicted_usd": 461206.84375,
+      "price_per_m2_vnd": 81517167.05683167,
+      "interval_vnd": [
+        8807073882.239939,
+        16051868271.832523
+      ],
+      "exchange_rate": {
+        "usd_vnd": 25780.0,
+        "quote_kind": "Vietcombank USD sell",
+        "source_url": "https://portal.vietcombank.com.vn/Usercontrols/TVPortal.TyGia/pXML.aspx?b=1",
+        "source_page": "https://www.vietcombank.com.vn/vi-VN/KHCN/Cong-cu-tien-ich/Ty-gia",
+        "quoted_at": "11/7/2026 12:39:49 AM",
+        "retrieved_at": "2026-11-06T17:41:58.606994+00:00",
+        "sha256": "fa614c393979d637523813fffc2dcff9dd025cb681979f41ab363d3ef5e0c279",
+        "meaning": "Currency conversion of historical US house prices; not a Vietnamese market valuation."
+      },
+      "model_version": "20261106T180015Z",
+      "explanations": [
+        {
+          "feature": "grade",
+          "label": "Chất lượng xây dựng",
+          "log_contribution": -0.14100152254104614,
+          "factor": 0.8684879893880493
+        },
+        {
+          "feature": "view",
+          "label": "Cảnh quan",
+          "log_contribution": 0.09532289952039719,
+          "factor": 1.1000139917766651
+        },
+        {
+          "feature": "latitude",
+          "label": "Vĩ độ",
+          "log_contribution": 0.0922686755657196,
+          "factor": 1.0966594280945712
+        },
+        {
+          "feature": "living_m2",
+          "label": "Diện tích ở",
+          "log_contribution": -0.06242531165480614,
+          "factor": 0.939483228640843
+        },
+        {
+          "feature": "longitude",
+          "label": "Kinh độ",
+          "log_contribution": 0.02077464386820793,
+          "factor": 1.0209919389159012
+        },
+        {
+          "feature": "condition",
+          "label": "Tình trạng nhà",
+          "log_contribution": -0.018351061269640923,
+          "factor": 0.9818162941749419
+        },
+        {
+          "feature": "house_age",
+          "label": "Tuổi nhà",
+          "log_contribution": 0.017193503677845,
+          "factor": 1.0173421627300705
+        },
+        {
+          "feature": "lot_m2",
+          "label": "Diện tích đất",
+          "log_contribution": -0.0098807904869318,
+          "factor": 0.9901678641427957
+        },
+        {
+          "feature": "bathrooms",
+          "label": "Phòng tắm",
+          "log_contribution": 0.0054607451893389225,
+          "factor": 1.0054756822351067
+        },
+        {
+          "feature": "waterfront",
+          "label": "Ven nước",
+          "log_contribution": -0.005188045557588339,
+          "factor": 0.9948253891075062
+        },
+        {
+          "feature": "renovated",
+          "label": "Đã cải tạo",
+          "log_contribution": -0.0033515426330268383,
+          "factor": 0.9966540675166816
+        },
+        {
+          "feature": "zipcode",
+          "label": "Mã bưu chính",
+          "log_contribution": -0.0031699645332992077,
+          "factor": 0.9968350544994861
+        },
+        {
+          "feature": "bedrooms",
+          "label": "Phòng ngủ",
+          "log_contribution": 0.0011779711348935962,
+          "factor": 1.0011786652153998
+        },
+        {
+          "feature": "month_index",
+          "label": "Thời điểm giao dịch",
+          "log_contribution": 0.0008313901489600539,
+          "factor": 1.0008317358495473
+        },
+        {
+          "feature": "renovation_age",
+          "label": "Tuổi cải tạo",
+          "log_contribution": 0.0007105676922947168,
+          "factor": 1.000710820205323
+        },
+        {
+          "feature": "floors",
+          "label": "Số tầng",
+          "log_contribution": -0.0005681767943315208,
+          "factor": 0.9994319845875373
+        }
+      ],
+      "base_price_usd": 465929.25,
+      "explanation_unit": "log1p(USD); đóng góp mô hình, không phải quan hệ nhân quả",
+      "amenities": [
+        {
+          "kind": "school",
+          "available": false
+        },
+        {
+          "kind": "convenience",
+          "available": false
+        },
+        {
+          "kind": "supermarket",
+          "available": false
+        }
+      ],
+      "amenities_used_by_model": false,
+      "comparables": [
+        {
+          "id": "7611200086",
+          "sale_date": "2014-06-02",
+          "living_m2": 170.9415936,
+          "bedrooms": 3,
+          "bathrooms": 1.5,
+          "distance_km": 0.3795778961626971,
+          "price_usd": 686000.0,
+          "price_vnd": 17685080000.0,
+          "price_per_m2_vnd": 103456856.97410043
+        },
+        {
+          "id": "3918400013",
+          "sale_date": "2014-07-01",
+          "living_m2": 135.6384384,
+          "bedrooms": 3,
+          "bathrooms": 2.25,
+          "distance_km": 0.7126618224115833,
+          "price_usd": 337000.0,
+          "price_vnd": 8687860000.0,
+          "price_per_m2_vnd": 64051607.36501077
+        },
+        {
+          "id": "6140100022",
+          "sale_date": "2014-08-26",
+          "living_m2": 148.644864,
+          "bedrooms": 3,
+          "bathrooms": 3.25,
+          "distance_km": 0.7664966863296961,
+          "price_usd": 345000.0,
+          "price_vnd": 8894100000.0,
+          "price_per_m2_vnd": 59834559.77328621
+        },
+        {
+          "id": "2287600035",
+          "sale_date": "2014-06-25",
+          "living_m2": 173.72868480000002,
+          "bedrooms": 3,
+          "bathrooms": 1.75,
+          "distance_km": 0.5087342535748358,
+          "price_usd": 595888.0,
+          "price_vnd": 15361992640.0,
+          "price_per_m2_vnd": 88425193.90326956
+        },
+        {
+          "id": "7640400250",
+          "sale_date": "2014-06-19",
+          "living_m2": 145.85777280000002,
+          "bedrooms": 2,
+          "bathrooms": 1.0,
+          "distance_km": 0.758607576263204,
+          "price_usd": 506000.0,
+          "price_vnd": 13044680000.0,
+          "price_per_m2_vnd": 89434246.45518787
+        }
+      ],
+      "warnings": [
+        "Ước tính nhà tại King County theo dữ liệu giao dịch 2014–2015, quy đổi sang VND. Không phải giá nhà Việt Nam hay định giá thị trường hiện tại. Quan hệ trong dữ liệu và đóng góp mô hình không chứng minh quan hệ nhân quả.",
+        "Khoảng dự đoán 90% là mức danh nghĩa. Độ phủ thực tế trên test: 90.8%.",
+        "Khoảng cách là đường chim bay tới đối tượng được ghi trên OSM ngày 01/05/2014. OSM có thể thiếu địa điểm."
+      ],
+      "market": "King County, Washington, USA",
+      "sale_date": "2015-03-01"
+    }
+  },
+  {
+    "name": "Căn nhà test 3",
+    "input": {
+      "living_m2": 119.8449216,
+      "lot_m2": 637.22195136,
+      "bedrooms": 3.0,
+      "bathrooms": 1.0,
+      "floors": 1.0,
+      "waterfront": 0.0,
+      "view": 0.0,
+      "condition": 4.0,
+      "grade": 7.0,
+      "latitude": 47.5317,
+      "longitude": -122.387,
+      "zipcode": "98136",
+      "year_built": 1941,
+      "year_renovated": 0,
+      "sale_date": "2015-04-08",
+      "id": "3013300017"
+    },
+    "actual_usd": 535000.0,
+    "actual_vnd": 13792300000.0,
+    "result": {
+      "predicted_vnd": 11280515124.375,
+      "predicted_usd": 437568.46875,
+      "price_per_m2_vnd": 94125933.52954389,
+      "interval_vnd": [
+        8355681896.393196,
+        15229157435.060255
+      ],
+      "exchange_rate": {
+        "usd_vnd": 25780.0,
+        "quote_kind": "Vietcombank USD sell",
+        "source_url": "https://portal.vietcombank.com.vn/Usercontrols/TVPortal.TyGia/pXML.aspx?b=1",
+        "source_page": "https://www.vietcombank.com.vn/vi-VN/KHCN/Cong-cu-tien-ich/Ty-gia",
+        "quoted_at": "11/7/2026 12:39:49 AM",
+        "retrieved_at": "2026-11-06T17:41:58.606994+00:00",
+        "sha256": "fa614c393979d637523813fffc2dcff9dd025cb681979f41ab363d3ef5e0c279",
+        "meaning": "Currency conversion of historical US house prices; not a Vietnamese market valuation."
+      },
+      "model_version": "20261106T180015Z",
+      "explanations": [
+        {
+          "feature": "grade",
+          "label": "Chất lượng xây dựng",
+          "log_contribution": -0.15610356628894806,
+          "factor": 0.8554705878688917
+        },
+        {
+          "feature": "living_m2",
+          "label": "Diện tích ở",
+          "log_contribution": -0.13436691462993622,
+          "factor": 0.8742692235776668
+        },
+        {
+          "feature": "longitude",
+          "label": "Kinh độ",
+          "log_contribution": 0.12355408072471619,
+          "factor": 1.1315111958329243
+        },
+        {
+          "feature": "zipcode",
+          "label": "Mã bưu chính",
+          "log_contribution": 0.04268113151192665,
+          "factor": 1.0436050690190941
+        },
+        {
+          "feature": "house_age",
+          "label": "Tuổi nhà",
+          "log_contribution": 0.031503982841968536,
+          "factor": 1.0320054859022216
+        },
+        {
+          "feature": "condition",
+          "label": "Tình trạng nhà",
+          "log_contribution": 0.030863944441080093,
+          "factor": 1.0313451740963142
+        },
+        {
+          "feature": "latitude",
+          "label": "Vĩ độ",
+          "log_contribution": 0.02078939974308014,
+          "factor": 1.021007004656351
+        },
+        {
+          "feature": "bathrooms",
+          "label": "Phòng tắm",
+          "log_contribution": -0.014805750921368599,
+          "factor": 0.9853033152763517
+        },
+        {
+          "feature": "view",
+          "label": "Cảnh quan",
+          "log_contribution": -0.012812567874789238,
+          "factor": 0.987269163637088
+        },
+        {
+          "feature": "lot_m2",
+          "label": "Diện tích đất",
+          "log_contribution": 0.007856598123908043,
+          "factor": 1.0078875421761913
+        },
+        {
+          "feature": "renovated",
+          "label": "Đã cải tạo",
+          "log_contribution": -0.0027884391602128744,
+          "factor": 0.9972154449252448
+        },
+        {
+          "feature": "bedrooms",
+          "label": "Phòng ngủ",
+          "log_contribution": 0.0021840340923517942,
+          "factor": 1.0021864208320674
+        },
+        {
+          "feature": "waterfront",
+          "label": "Ven nước",
+          "log_contribution": -0.0014351505087688565,
+          "factor": 0.9985658788272463
+        },
+        {
+          "feature": "floors",
+          "label": "Số tầng",
+          "log_contribution": -0.001392493722960353,
+          "factor": 0.9986084753465639
+        },
+        {
+          "feature": "month_index",
+          "label": "Thời điểm giao dịch",
+          "log_contribution": 0.000840403139591217,
+          "factor": 1.0008407563772568
+        },
+        {
+          "feature": "renovation_age",
+          "label": "Tuổi cải tạo",
+          "log_contribution": 0.0006252290913835168,
+          "factor": 1.0006254245878332
+        }
+      ],
+      "base_price_usd": 465929.25,
+      "explanation_unit": "log1p(USD); đóng góp mô hình, không phải quan hệ nhân quả",
+      "amenities": [
+        {
+          "kind": "school",
+          "available": false
+        },
+        {
+          "kind": "convenience",
+          "available": false
+        },
+        {
+          "kind": "supermarket",
+          "available": false
+        }
+      ],
+      "amenities_used_by_model": false,
+      "comparables": [
+        {
+          "id": "9842300036",
+          "sale_date": "2014-10-08",
+          "living_m2": 121.70298240000001,
+          "bedrooms": 3,
+          "bathrooms": 1.0,
+          "distance_km": 0.48432901413692153,
+          "price_usd": 415885.0,
+          "price_vnd": 10721515300.0,
+          "price_per_m2_vnd": 88095748.25998676
+        },
+        {
+          "id": "9169100214",
+          "sale_date": "2014-05-14",
+          "living_m2": 119.8449216,
+          "bedrooms": 3,
+          "bathrooms": 1.0,
+          "distance_km": 0.6800911735233688,
+          "price_usd": 372220.0,
+          "price_vnd": 9595831600.0,
+          "price_per_m2_vnd": 80068737.76452118
+        },
+        {
+          "id": "9169600135",
+          "sale_date": "2014-10-27",
+          "living_m2": 125.419104,
+          "bedrooms": 3,
+          "bathrooms": 1.5,
+          "distance_km": 0.5552468182816913,
+          "price_usd": 525000.0,
+          "price_vnd": 13534500000.0,
+          "price_per_m2_vnd": 107914181.87774646
+        },
+        {
+          "id": "1781500385",
+          "sale_date": "2014-08-06",
+          "living_m2": 118.9158912,
+          "bedrooms": 3,
+          "bathrooms": 1.0,
+          "distance_km": 0.8319602893285833,
+          "price_usd": 296500.0,
+          "price_vnd": 7643770000.0,
+          "price_per_m2_vnd": 64278793.37963537
+        },
+        {
+          "id": "2490200165",
+          "sale_date": "2014-06-23",
+          "living_m2": 106.838496,
+          "bedrooms": 3,
+          "bathrooms": 1.0,
+          "distance_km": 0.42111367317871745,
+          "price_usd": 500000.0,
+          "price_vnd": 12890000000.0,
+          "price_per_m2_vnd": 120649395.88816375
+        }
+      ],
+      "warnings": [
+        "Ước tính nhà tại King County theo dữ liệu giao dịch 2014–2015, quy đổi sang VND. Không phải giá nhà Việt Nam hay định giá thị trường hiện tại. Quan hệ trong dữ liệu và đóng góp mô hình không chứng minh quan hệ nhân quả.",
+        "Khoảng dự đoán 90% là mức danh nghĩa. Độ phủ thực tế trên test: 90.8%.",
+        "Khoảng cách là đường chim bay tới đối tượng được ghi trên OSM ngày 01/05/2014. OSM có thể thiếu địa điểm."
+      ],
+      "market": "King County, Washington, USA",
+      "sale_date": "2015-04-08"
+    }
+  }
+]

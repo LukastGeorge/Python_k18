@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+# Python_k18
+=======
 # Dự đoán giá từng căn nhà ở Mỹ · Nhóm 8
 
 Nguyễn Duy Trường — MSSV 24150180 — STT 6. Cá nhân, nhóm 8; ngành Công nghệ thông tin, chuyên ngành Kỹ thuật phần mềm.
@@ -107,3 +110,4 @@ Nguồn là dữ liệu mở của cơ quan địa phương, không bảo đảm
 ## Bản cũ
 
 Ames 2006–2010, mô hình cũ và script `scripts/train.py` vẫn được giữ nguyên. Chạy `python -m streamlit run app_ames.py`; hướng dẫn cũ ở `docs/README_AMES_LEGACY.md`. Không trộn số liệu đánh giá Ames với bộ dữ liệu mới.
+>>>>>>> 2593673 (TieuLuan)

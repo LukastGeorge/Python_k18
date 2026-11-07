@@ -1,0 +1,9 @@
+.valuation > div,
+.context > div,
+.fields > label {
+  min-width: 0;
+}
+
+.table-wrap {
+  max-width: 100%;
+}
