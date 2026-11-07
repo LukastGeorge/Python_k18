@@ -1,7 +1,0 @@
-area_sqft,bedrooms,bathrooms,year_built,sale_year,sale_month,state,locality,area_kind
-768.0,4.0,1.75,1964.0,2026,9,CO,Boulder County,finished
-2835.0,4.0,2.25,1973.0,2026,9,CO,Boulder County,finished
-1592.0,3.0,2.0,1977.0,2026,9,CO,Boulder County,finished
-748.0,2.0,1.0,1929.0,2026,10,DC,"Washington, D.C.",gross
-1600.0,4.0,2.5,1941.0,2026,10,DC,"Washington, D.C.",gross
-1008.0,4.0,2.0,1941.0,2026,10,DC,"Washington, D.C.",gross

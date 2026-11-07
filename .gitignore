@@ -1,3 +1,9 @@
+# Keep only the final-term project and its repository configuration on GitHub.
+/*
+!/.gitignore
+!/.github/
+!/TieuLuan_CuoiKy/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
